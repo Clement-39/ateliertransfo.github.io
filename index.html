@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AtelierTransfo — L'atelier où les matières se transforment</title>
-<meta name="description" content="Ateliers électronique, location de matériel, impression 3D et créations sur mesure. Réservez votre créneau à l'atelier.">
+<title>AtelierTransfo — Électronique, upcycling & impression 3D à Besançon</title>
+<meta name="description" content="Ateliers électronique, upcycling, location de matériel et impression 3D à Besançon. Réservez votre créneau à l'atelier.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #16211A;
-    --surface: #1F2E24;
-    --surface-2: #28392E;
+    --bg: #1C2B22;
+    --surface: #25392C;
+    --surface-2: #304937;
     --accent: #FFE000;
     --accent-dim: #C9AE00;
-    --rust: #2F7D3D;
+    --rust: #4A9457;
     --text: #EDEAE0;
-    --muted: #93A597;
-    --line: #33453A;
+    --muted: #9FB3A2;
+    --line: #3E5747;
     --radius: 6px;
   }
 
@@ -49,7 +49,7 @@
   }
   .nav{
     display:flex; align-items:center; justify-content:space-between;
-    padding:16px 24px;
+    padding:10px 24px;
   }
   .brand{ font-size:1.3rem; font-weight:700; letter-spacing:0.02em; text-decoration:none; }
   .brand span{ color:var(--accent); }
@@ -102,17 +102,17 @@
   .btn-ghost{ border-color:var(--line); color:var(--text); background:transparent; }
   .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
 
-  /* transformation signature graphic */
+  /* capability chips */
   .transfo-strip{
-    display:flex; align-items:center; justify-content:center; gap:18px;
+    display:flex; align-items:center; justify-content:center; gap:12px;
     margin:56px auto 0; max-width:640px; flex-wrap:wrap;
   }
-  .transfo-strip .tag{
-    background:var(--surface); border:1px dashed var(--line); border-radius:var(--radius);
-    padding:14px 20px; font-size:0.85rem; color:var(--muted); font-weight:500;
+  .transfo-strip .chip{
+    background:var(--surface); border:1px solid var(--line); border-radius:30px;
+    padding:10px 20px; font-size:0.88rem; color:var(--text); font-weight:600;
+    transition:border-color 0.15s, transform 0.15s;
   }
-  .transfo-strip .arrow{ color:var(--accent); font-size:1.4rem; }
-  .transfo-strip .tag.result{ border-style:solid; border-color:var(--accent); color:var(--text); }
+  .transfo-strip .chip:hover{ border-color:var(--accent); transform:translateY(-2px); }
 
   /* ---------- Section shell ---------- */
   section{ padding:80px 24px; border-top:1px solid var(--line); }
@@ -218,7 +218,7 @@
 
 <header>
   <div class="nav">
-    <a href="#accueil" class="brand"><img src="logo.png" alt="AtelierTransfo" style="height:38px; display:block;"></a>
+    <a href="#accueil" class="brand"><img src="logo.png" alt="AtelierTransfo" style="height:64px; display:block;"></a>
     <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" id="navLinks">
       <a href="#ateliers">Ateliers</a>
@@ -232,20 +232,19 @@
 </header>
 
 <section id="accueil" class="hero" style="border-top:none;">
-  <span class="eyebrow">Atelier de création & transformation</span>
-  <h1>Ici, la matière brute devient objet, savoir-faire et projet.</h1>
-  <p>Ateliers électronique, location de matériel, impression 3D et pièces sur mesure — tout se passe à l'atelier, ou presque.</p>
+  <span class="eyebrow">Atelier de création & transformation à Besançon</span>
+  <h1>Je récupère, je répare, je redonne vie aux objets qu'on allait jeter.</h1>
+  <p>Électronique, upcycling et impression 3D : ateliers, location de matériel et pièces sur mesure, sur rendez-vous à Besançon.</p>
   <div class="cta-row">
     <a href="#reservation" class="btn btn-primary">Réserver un créneau</a>
     <a href="#creations" class="btn btn-ghost">Voir les créations</a>
   </div>
 
   <div class="transfo-strip">
-    <span class="tag">Matière brute</span>
-    <span class="arrow">→</span>
-    <span class="tag">Savoir-faire</span>
-    <span class="arrow">→</span>
-    <span class="tag result">Objet unique</span>
+    <span class="chip">⚡ Électronique</span>
+    <span class="chip">♻️ Upcycling</span>
+    <span class="chip">🖨️ Impression 3D</span>
+    <span class="chip">🛠️ Sur mesure</span>
   </div>
 </section>
 
@@ -267,7 +266,13 @@
         <p>Vous avez une idée ou un objet à réparer ? On construit la séance autour de votre projet.</p>
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet personnalisé')">Réserver cette session</a>
       </div>
+      <div class="service-card">
+        <h3>Projet upcycling</h3>
+        <p>Un vieil objet qui traîne dans un garage ou un tiroir ? On lui redonne une nouvelle utilité grâce à l'électronique.</p>
+        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet upcycling')">Réserver cette session</a>
+      </div>
     </div>
+    <p class="form-note" style="margin-top:20px;">Tarif indicatif : 55€/heure par session — les détails seront affinés prochainement.</p>
   </div>
 </section>
 
@@ -290,8 +295,13 @@
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — matériel électronique')">Voir la disponibilité</a>
       </div>
       <div class="service-card">
+        <h3>Imprimante 3D</h3>
+        <p>Je loue aussi l'imprimante 3D elle-même, si vous préférez imprimer chez vous.</p>
+        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — imprimante 3D')">Voir la disponibilité</a>
+      </div>
+      <div class="service-card">
         <h3>Un article en particulier ?</h3>
-        <p>Décrivez-nous ce que vous cherchez, on vous dira si on l'a et s'il est disponible.</p>
+        <p>Décrivez-moi ce que vous cherchez, je vous dirai si je l'ai et s'il est disponible.</p>
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — autre article')">Demander</a>
       </div>
     </div>
@@ -321,6 +331,11 @@
         <p>Vous n'avez pas de fichier ? Décrivez la pièce dont vous avez besoin, on s'occupe de la conception et de l'impression.</p>
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — demande de pièce personnalisée')">Faire une demande</a>
       </div>
+      <div class="service-card">
+        <h3>Filament recyclé (PET)</h3>
+        <p>Je transforme des bouteilles plastiques récupérées en filament PET pour l'impression 3D — une option upcycling pour vos pièces.</p>
+        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — filament recyclé PET')">En savoir plus</a>
+      </div>
     </div>
   </div>
 </section>
@@ -330,47 +345,27 @@
     <div class="section-head reveal">
       <span class="eyebrow">Créations</span>
       <h2>Ce qui sort de l'atelier</h2>
-      <p>Un aperçu des pièces réalisées. Pas de vente en ligne : chaque objet se discute directement avec nous.</p>
+      <p>Un aperçu des pièces réalisées. Pas de vente en ligne : chaque objet se discute directement avec moi.</p>
     </div>
     <div class="gallery-grid reveal">
 
       <div class="piece">
         <div class="piece-media">Photo à venir</div>
         <div class="piece-body">
-          <span class="piece-tag">Bois</span>
-          <h3>Étagère modulable</h3>
-          <p>Structure en chêne massif, finition huilée.</p>
-          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Nous contacter →</a>
+          <span class="piece-tag">Upcycling</span>
+          <h3>Raquette de ping-pong enregistreuse</h3>
+          <p>Une raquette transformée en dictaphone caché.</p>
+          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Me contacter →</a>
         </div>
       </div>
 
       <div class="piece">
         <div class="piece-media">Vidéo à venir</div>
         <div class="piece-body">
-          <span class="piece-tag">Métal</span>
-          <h3>Support d'atelier soudé</h3>
-          <p>Fabriqué à partir de chutes de métal récupérées.</p>
-          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Nous contacter →</a>
-        </div>
-      </div>
-
-      <div class="piece">
-        <div class="piece-media">Photo à venir</div>
-        <div class="piece-body">
-          <span class="piece-tag">Impression 3D</span>
-          <h3>Boîtier sur mesure</h3>
-          <p>Conçu et imprimé à l'atelier pour un besoin spécifique.</p>
-          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Nous contacter →</a>
-        </div>
-      </div>
-
-      <div class="piece">
-        <div class="piece-media">Vidéo à venir</div>
-        <div class="piece-body">
-          <span class="piece-tag">Textile</span>
-          <h3>Housse rembourrée</h3>
-          <p>Réalisée sur mesure à partir de chutes de tissu.</p>
-          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Nous contacter →</a>
+          <span class="piece-tag">Upcycling</span>
+          <h3>Téléphone à cadran jukebox</h3>
+          <p>Un vieux téléphone à cadran devenu jukebox miniature.</p>
+          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Me contacter →</a>
         </div>
       </div>
 
@@ -378,24 +373,34 @@
         <div class="piece-media">Photo à venir</div>
         <div class="piece-body">
           <span class="piece-tag">Électronique</span>
-          <h3>Lampe montée à la main</h3>
-          <p>Circuit et câblage réalisés lors d'un atelier électronique.</p>
-          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Nous contacter →</a>
+          <h3>Mini machine à fumée portative</h3>
+          <p>Format poche, pour des effets surprises où vous voulez.</p>
+          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Me contacter →</a>
+        </div>
+      </div>
+
+      <div class="piece">
+        <div class="piece-media">Vidéo à venir</div>
+        <div class="piece-body">
+          <span class="piece-tag">Électronique</span>
+          <h3>Buzzer quiz connecté</h3>
+          <p>Prêt pour vos soirées jeux, façon plateau télé.</p>
+          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Me contacter →</a>
         </div>
       </div>
 
       <div class="piece">
         <div class="piece-media">Photo à venir</div>
         <div class="piece-body">
-          <span class="piece-tag">Objets détournés</span>
-          <h3>Rangement recyclé</h3>
-          <p>Deuxième vie donnée à des matériaux récupérés.</p>
-          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Nous contacter →</a>
+          <span class="piece-tag">Électronique</span>
+          <h3>Caméra de surveillance à capteur de mouvement</h3>
+          <p>Montée maison, détection de mouvement intégrée.</p>
+          <a href="#reservation" class="link-btn" onclick="preselect('Créations — demande sur une pièce')">Me contacter →</a>
         </div>
       </div>
 
     </div>
-    <p class="form-note reveal">↑ Remplacez ces étiquettes par vos vraies photos et vidéos — dites-moi quand vous êtes prêt(e) et je vous montre comment faire.</p>
+    <p class="form-note reveal">↑ Photos et vidéos à venir — dites-moi quand vous êtes prêt(e) à me les envoyer et je les intègre ici.</p>
   </div>
 </section>
 
@@ -404,15 +409,15 @@
     <div class="about-grid reveal">
       <div>
         <span class="eyebrow">L'atelier</span>
-        <h2>Un lieu pour fabriquer, réparer, apprendre</h2>
-        <p>AtelierTransfo est un espace de création où bois, métal, textile, électronique et impression 3D se croisent. On y répare, on y transforme, on y apprend — seul ou accompagné.</p>
-        <p>Remplacez ce texte par votre propre histoire : comment est né l'atelier, ce qui vous anime, ce que les visiteurs peuvent y trouver.</p>
+        <h2>Un lieu pour fabriquer, réparer, upcycler</h2>
+        <p>AtelierTransfo est un espace de création où électronique, upcycling et impression 3D se croisent. Ici, on répare, on détourne, on redonne vie aux objets plutôt que de les jeter — l'upcycling est au cœur de chaque projet.</p>
+        <p>Beaucoup de mes créations naissent d'appareils électroniques obsolètes que je démonte et récupère. Vous avez du matériel hors service qui dort dans un tiroir ou un garage ? Ne le déposez pas à la déchetterie — venez me le confier, ça vaut de l'or à mes yeux.</p>
+        <p>Je suis aussi régisseur de théâtre, spécialisé lumière et plateau — une autre vie faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique ici.</p>
       </div>
       <ul class="info-list">
-        <li><span class="k">Adresse</span> <span>À compléter — adresse de l'atelier</span></li>
-        <li><span class="k">Horaires</span> <span>À compléter — jours et heures d'ouverture</span></li>
-        <li><span class="k">Email</span> <span>contact@ateliertransfo.fr</span></li>
-        <li><span class="k">Téléphone</span> <span>À compléter</span></li>
+        <li><span class="k">Adresse</span> <span>1 rue Général Rolland, 25000 Besançon</span></li>
+        <li><span class="k">Horaires</span> <span>Quand je décide d'aller bricoler, ou sur rendez-vous</span></li>
+        <li><span class="k">Email</span> <span>ateliertransfo@hotmail.com</span></li>
       </ul>
     </div>
   </div>
@@ -426,18 +431,21 @@
       <p>Atelier électronique, location, impression 3D, pièce personnalisée ou simple question : dites-nous tout ici, on revient vers vous rapidement pour confirmer.</p>
     </div>
 
-    <form class="form-shell reveal" id="reservationForm" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST">
+    <form class="form-shell reveal" id="reservationForm" action="https://formspree.io/f/xnjeyppb" method="POST">
       <div class="field">
         <label for="type">Type de demande</label>
         <select id="type" name="Type de demande" required>
           <option value="">Choisissez...</option>
           <option>Atelier électronique — découverte</option>
           <option>Atelier électronique — projet personnalisé</option>
+          <option>Atelier électronique — projet upcycling</option>
           <option>Location de matériel — outillage électroportatif</option>
           <option>Location de matériel — matériel électronique</option>
+          <option>Location de matériel — imprimante 3D</option>
           <option>Location de matériel — autre article</option>
           <option>Impression 3D — réserver une journée</option>
           <option>Impression 3D — demande de pièce personnalisée</option>
+          <option>Impression 3D — filament recyclé PET</option>
           <option>Créations — demande sur une pièce</option>
           <option>Autre demande</option>
         </select>
@@ -483,17 +491,15 @@
       <div>
         <span class="eyebrow">Contact</span>
         <h2>Une question, avant tout ?</h2>
-        <p style="color:var(--muted);">Pas besoin de passer par le formulaire de réservation pour une simple question — écrivez-nous directement.</p>
+        <p style="color:var(--muted);">Pas besoin de passer par le formulaire de réservation pour une simple question — écrivez-moi directement.</p>
         <p style="margin-top:24px;">
-          <strong>Email :</strong> <a href="mailto:contact@ateliertransfo.fr">contact@ateliertransfo.fr</a><br>
-          <strong>Téléphone :</strong> À compléter<br>
-          <strong>Adresse :</strong> À compléter
+          <strong>Email :</strong> <a href="mailto:ateliertransfo@hotmail.com">ateliertransfo@hotmail.com</a><br>
+          <strong>Adresse :</strong> 1 rue Général Rolland, 25000 Besançon
         </p>
       </div>
       <div>
         <p style="color:var(--muted); font-size:0.9rem;">
-          Pour configurer ce formulaire et recevoir les messages dans votre boîte mail, il suffit de créer un compte gratuit sur
-          <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a> et de remplacer l'identifiant dans le code du formulaire ci-dessus. Je peux vous guider pas à pas.
+          Les demandes envoyées via le formulaire de réservation arrivent directement dans ma boîte mail — je reviens vers vous rapidement pour confirmer.
         </p>
       </div>
     </div>
@@ -531,10 +537,27 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // simple demo feedback on form submit (remove once Formspree ID is set, real redirect will take over)
+  // envoi du formulaire vers Formspree sans quitter la page
   const form = document.getElementById('reservationForm');
-  form.addEventListener('submit', () => {
-    document.getElementById('formSuccess').style.display = 'block';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok){
+        document.getElementById('formSuccess').style.display = 'block';
+        form.reset();
+        document.getElementById('formSuccess').scrollIntoView({ behavior:'smooth', block:'nearest' });
+      } else {
+        alert("Une erreur est survenue. Réessayez, ou écrivez-moi directement à ateliertransfo@hotmail.com");
+      }
+    } catch(err){
+      alert("Une erreur est survenue. Réessayez, ou écrivez-moi directement à ateliertransfo@hotmail.com");
+    }
   });
 </script>
 
