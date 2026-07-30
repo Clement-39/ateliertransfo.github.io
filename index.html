@@ -10,15 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #1F1C1A;
-    --surface: #2B2622;
-    --surface-2: #362F2A;
-    --accent: #C89B3C;
-    --accent-dim: #9C7A2E;
-    --rust: #A8452F;
-    --text: #EDE7DD;
-    --muted: #A79C8D;
-    --line: #423A33;
+    --bg: #16211A;
+    --surface: #1F2E24;
+    --surface-2: #28392E;
+    --accent: #FFE000;
+    --accent-dim: #C9AE00;
+    --rust: #2F7D3D;
+    --text: #EDEAE0;
+    --muted: #93A597;
+    --line: #33453A;
     --radius: 6px;
   }
 
@@ -97,7 +97,7 @@
     text-decoration:none; font-weight:600; font-size:0.95rem;
     border:1px solid transparent; cursor:pointer; transition:transform 0.15s, background 0.15s;
   }
-  .btn-primary{ background:var(--accent); color:#211D1A; }
+  .btn-primary{ background:var(--accent); color:var(--bg); }
   .btn-primary:hover{ background:#DBAE4E; transform:translateY(-1px); }
   .btn-ghost{ border-color:var(--line); color:var(--text); background:transparent; }
   .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
@@ -205,7 +205,7 @@
   }
   footer a{ color:var(--muted); text-decoration:underline; }
 
-  ::selection{ background:var(--accent); color:#211D1A; }
+  ::selection{ background:var(--accent); color:var(--bg); }
 
   /* visible keyboard focus everywhere */
   a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
@@ -218,7 +218,7 @@
 
 <header>
   <div class="nav">
-    <a href="#accueil" class="brand">Atelier<span>Transfo</span></a>
+    <a href="#accueil" class="brand"><img src="logo.png" alt="AtelierTransfo" style="height:38px; display:block;"></a>
     <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" id="navLinks">
       <a href="#ateliers">Ateliers</a>
