@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AtelierTransfo — Électronique, upcycling & impression 3D à Besançon</title>
 <meta name="description" content="Ateliers électronique, upcycling, location de matériel et impression 3D à Besançon. Réservez votre créneau à l'atelier.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -136,6 +138,26 @@
   .how-step .n{ color:var(--accent); font-weight:700; font-family:'Bricolage Grotesque', sans-serif; font-size:0.95rem; }
   .how-step p{ margin:6px 0 0; color:var(--muted); font-size:0.88rem; }
 
+  /* ---------- Availability calendar (illustrative) ---------- */
+  .availability{ margin-top:44px; }
+  .availability-head{ display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
+  .availability-head h3{ font-size:1.05rem; margin:0; }
+  .avail-note{ font-size:0.8rem; color:var(--muted); }
+  .avail-grid{
+    display:grid; grid-template-columns:repeat(7, 1fr); gap:8px;
+  }
+  .avail-cell{
+    padding:10px 6px; text-align:center; border-radius:var(--radius); font-size:0.82rem;
+  }
+  .avail-day{ color:var(--muted); font-weight:600; padding-bottom:4px; }
+  .avail-free{
+    background:rgba(255,224,0,0.12); border:1px solid var(--accent-dim); color:var(--text); font-weight:600;
+  }
+  @media (max-width:560px){
+    .avail-grid{ grid-template-columns:repeat(7, minmax(36px,1fr)); font-size:0.7rem; }
+    .avail-cell{ padding:6px 2px; }
+  }
+
   /* ---------- Creations gallery (etiquette style) ---------- */
   .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:26px; }
   .piece{
@@ -163,6 +185,25 @@
     border-bottom:1px solid var(--accent); padding-bottom:2px;
   }
   .piece .link-btn:hover{ color:var(--accent); }
+
+  /* ---------- Detail blocks (Cab'sule, téléphone vintage...) ---------- */
+  .detail-block{
+    margin-top:56px; padding-top:48px; border-top:1px dashed var(--line);
+  }
+  .detail-title{ font-size:1.4rem; margin:0 0 24px; }
+  .detail-block h4{
+    font-size:0.95rem; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--accent); margin:32px 0 14px;
+  }
+  .detail-block p{ color:var(--muted); margin:0 0 14px; }
+  .detail-gallery{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px;
+    margin-bottom:8px;
+  }
+  .detail-gallery img{
+    width:100%; height:260px; object-fit:cover; border-radius:var(--radius);
+    border:1px solid var(--line); display:block;
+  }
 
   /* ---------- About ---------- */
   .about-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:start; }
@@ -223,6 +264,7 @@
     <nav class="links" id="navLinks">
       <a href="#ateliers">Ateliers</a>
       <a href="#location">Location</a>
+      <a href="#location-creations">Créations à louer</a>
       <a href="#impression3d">Impression 3D</a>
       <a href="#creations">Créations</a>
       <a href="#reservation">Réserver</a>
@@ -304,6 +346,111 @@
         <p>Décrivez-moi ce que vous cherchez, je vous dirai si je l'ai et s'il est disponible.</p>
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — autre article')">Demander</a>
       </div>
+    </div>
+
+    <div class="availability reveal">
+      <div class="availability-head">
+        <h3>Disponibilités</h3>
+        <span class="avail-note">Calendrier indicatif — toutes les dates sont actuellement libres, à confirmer via le formulaire</span>
+      </div>
+      <div class="avail-grid">
+        <div class="avail-cell avail-day">Lun</div>
+        <div class="avail-cell avail-day">Mar</div>
+        <div class="avail-cell avail-day">Mer</div>
+        <div class="avail-cell avail-day">Jeu</div>
+        <div class="avail-cell avail-day">Ven</div>
+        <div class="avail-cell avail-day">Sam</div>
+        <div class="avail-cell avail-day">Dim</div>
+        <div class="avail-cell avail-free">Libre</div>
+        <div class="avail-cell avail-free">Libre</div>
+        <div class="avail-cell avail-free">Libre</div>
+        <div class="avail-cell avail-free">Libre</div>
+        <div class="avail-cell avail-free">Libre</div>
+        <div class="avail-cell avail-free">Libre</div>
+        <div class="avail-cell avail-free">Libre</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="location-creations">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Créations à louer</span>
+      <h2>Louez mes créations pour un événement</h2>
+      <p>En plus du matériel d'atelier, certaines de mes créations se louent pour des événements, mariages ou animations.</p>
+    </div>
+
+    <div class="service-grid reveal">
+      <div class="service-card">
+        <h3>La Cab'sule</h3>
+        <p>Cabine téléphonique juke-box rétro, un voyage dans le temps musical pour vos événements.</p>
+        <a href="#cabsule" class="btn btn-ghost">Découvrir la Cab'sule</a>
+      </div>
+      <div class="service-card">
+        <h3>Téléphone vintage — livre d'or</h3>
+        <p>Un téléphone d'époque qui enregistre les messages de vos invités, pour mariages et anniversaires.</p>
+        <a href="#tel-vintage" class="btn btn-ghost">Découvrir cette option</a>
+      </div>
+    </div>
+
+    <!-- ===== La Cab'sule ===== -->
+    <div class="detail-block reveal" id="cabsule">
+      <h3 class="detail-title">La Cab'sule — cabine téléphonique juke-box</h3>
+
+      <div class="detail-gallery">
+        <img src="images/cabsule-neon.jpg" alt="Enseigne néon Cabsule à l'entrée de la cabine">
+        <img src="images/cabsule-phone.jpg" alt="Téléphone à cadran vintage de la Cabsule, éclairé par les jeux de lumière">
+        <img src="images/cabsule-use.jpg" alt="Utilisatrice décrochant le combiné de la Cabsule">
+      </div>
+
+      <h4>Présentation</h4>
+      <p>La Cab'sule, fruit de l'imagination débordante d'un passionné d'électronique et d'upcycling, a vu le jour dans l'atelier Tolstoï à Villeurbanne. En tant que régisseur de théâtre, je suis constamment à la recherche de nouvelles manières de surprendre et d'émerveiller le public. Inspiré par le charme des objets anciens et le potentiel de la technologie moderne, j'ai conçu cette cabine téléphonique juke-box rétro, repensée pour réveiller les souvenirs et offrir une expérience inoubliable aux utilisateurs.</p>
+      <p>Dès que vous pénétrez dans la Cab'sule, vous êtes enveloppé dans une immersion temporelle unique. Le premier geste est de décrocher le combiné du téléphone et de composer une année entre 1940 et aujourd'hui sur le cadran. Une fois votre choix effectué, la cabine vous transporte instantanément vers cette époque en vous offrant une musique aléatoire de son répertoire, sortie cette année-là — comme un bond dans le temps, entre souvenirs chers et découvertes musicales.</p>
+      <p>Mes expériences en régie lumière m'ont permis d'apporter une touche de folie et d'originalité à la Cab'sule, en installant des jeux de lumière en réaction avec la musique sur toutes les parois intérieures, faisant de chaque voyage dans le temps une aventure sensorielle et émotionnelle.</p>
+
+      <h4>Caractéristiques</h4>
+      <ul class="info-list">
+        <li><span class="k">Dimensions</span> <span>Hauteur 2m20 · Largeur 90cm · Profondeur 1m</span></li>
+        <li><span class="k">Matériaux</span> <span>Structure en chêne massif, parois en PVC</span></li>
+        <li><span class="k">Téléphone</span> <span>Socotel S63 mural d'époque, transformé en juke-box interactif</span></li>
+        <li><span class="k">Fonctionnement</span> <span>On décroche, on compose une année (1940 à aujourd'hui), une musique aléatoire de cette année se lance</span></li>
+        <li><span class="k">Ambiance</span> <span>Jeux de lumière synchronisés avec la musique</span></li>
+      </ul>
+
+      <h4>Spécifications techniques</h4>
+      <ul class="info-list">
+        <li><span class="k">Montage</span> <span>Doit être fait en ma présence — 6 blocs démontables (3 murs, 1 porte, 1 sol, 1 plafond), charnières rapides, environ 1h</span></li>
+        <li><span class="k">Transport</span> <span>Véhicule avec coffre de 2m20 de long, aller-retour depuis Villeurbanne (69) — modalités à discuter ensemble</span></li>
+      </ul>
+
+      <h4>Sécurité et précautions</h4>
+      <ul class="info-list">
+        <li><span class="k">Nuit</span> <span>Gardiennage ou surveillance requis en cas d'installation la nuit</span></li>
+        <li><span class="k">Extérieur</span> <span>Bâche de protection fournie à poser la nuit en cas d'exposition en plein air</span></li>
+        <li><span class="k">Incendie</span> <span>Extincteur classe AB à prévoir à proximité</span></li>
+        <li><span class="k">Personnel</span> <span>Formation express des techniciens le jour du montage</span></li>
+      </ul>
+
+      <h4>Tarifs</h4>
+      <ul class="info-list">
+        <li><span class="k">Journée</span> <span>250€</span></li>
+        <li><span class="k">Week-end</span> <span>450€</span></li>
+        <li><span class="k">Semaine</span> <span>850€</span></li>
+        <li><span class="k">Caution</span> <span>1800€</span></li>
+      </ul>
+      <p class="form-note">Frais de transport non compris, variables selon la distance. Tarifs pouvant s'ajuster selon les horaires spécifiques de l'événement.</p>
+
+      <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — la Cab\'sule')" style="margin-top:10px;">Réserver la Cab'sule</a>
+    </div>
+
+    <!-- ===== Téléphone vintage livre d'or ===== -->
+    <div class="detail-block reveal" id="tel-vintage">
+      <h3 class="detail-title">Téléphone vintage — livre d'or</h3>
+      <div class="piece-media" style="height:200px; max-width:420px;">Photo à venir</div>
+      <p style="margin-top:18px;">Idéal pour les mariages, anniversaires ou autres événements : vos invités décrochent un téléphone d'époque et laissent un message personnalisé, qui est enregistré sur une carte SD comme souvenir.</p>
+      <p class="form-note">Photo et description complète en cours de création.</p>
+      <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — téléphone vintage livre d\'or')" style="margin-top:10px;">Me contacter pour cette option</a>
     </div>
   </div>
 </section>
@@ -446,6 +593,8 @@
           <option>Impression 3D — réserver une journée</option>
           <option>Impression 3D — demande de pièce personnalisée</option>
           <option>Impression 3D — filament recyclé PET</option>
+          <option>Location de créations — la Cab'sule</option>
+          <option>Location de créations — téléphone vintage livre d'or</option>
           <option>Créations — demande sur une pièce</option>
           <option>Autre demande</option>
         </select>
@@ -494,7 +643,8 @@
         <p style="color:var(--muted);">Pas besoin de passer par le formulaire de réservation pour une simple question — écrivez-moi directement.</p>
         <p style="margin-top:24px;">
           <strong>Email :</strong> <a href="mailto:ateliertransfo@hotmail.com">ateliertransfo@hotmail.com</a><br>
-          <strong>Adresse :</strong> 1 rue Général Rolland, 25000 Besançon
+          <strong>Adresse :</strong> 1 rue Général Rolland, 25000 Besançon<br>
+          <strong>Instagram :</strong> <a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener">@ateliertransfo</a>
         </p>
       </div>
       <div>
@@ -507,7 +657,10 @@
 </section>
 
 <footer>
-  <p>© 2026 AtelierTransfo — Site réalisé avec l'aide de Claude. Hébergement gratuit, domaine ateliertransfo.fr.</p>
+  <p>
+    © 2026 AtelierTransfo — Besançon &nbsp;·&nbsp;
+    <a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener">@ateliertransfo sur Instagram</a>
+  </p>
 </footer>
 
 <script>
