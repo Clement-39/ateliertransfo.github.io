@@ -84,6 +84,10 @@
     display:inline-block; color:var(--accent); font-size:0.8rem; letter-spacing:0.14em;
     text-transform:uppercase; font-weight:600; margin-bottom:18px;
   }
+  .wip-note{
+    display:block; color:var(--muted); font-size:0.72rem; letter-spacing:0.1em;
+    text-transform:uppercase; margin-bottom:10px; opacity:0.75;
+  }
   .hero h1{
     font-size:clamp(2.2rem, 5vw, 3.6rem);
     font-weight:800; margin:0 0 22px; line-height:1.08;
@@ -186,6 +190,18 @@
   }
   .piece .link-btn:hover{ color:var(--accent); }
 
+  /* ---------- Tabs (Location) ---------- */
+  .tabs{ display:flex; gap:10px; margin-bottom:40px; flex-wrap:wrap; }
+  .tab-btn{
+    background:var(--surface); border:1px solid var(--line); color:var(--muted);
+    padding:11px 24px; border-radius:30px; font-weight:600; font-size:0.9rem;
+    cursor:pointer; transition:border-color 0.15s, background 0.15s, color 0.15s;
+    font-family:'Inter', sans-serif;
+  }
+  .tab-btn:hover{ border-color:var(--accent); color:var(--text); }
+  .tab-btn.active{ background:var(--accent); color:var(--bg); border-color:var(--accent); }
+  .tab-intro{ color:var(--muted); margin:0 0 32px; max-width:560px; }
+
   /* ---------- Detail blocks (Cab'sule, téléphone vintage...) ---------- */
   .detail-block{
     margin-top:56px; padding-top:48px; border-top:1px dashed var(--line);
@@ -237,6 +253,18 @@
   }
 
   /* ---------- Contact ---------- */
+  .contact-title{
+    display:flex; align-items:center; gap:12px;
+  }
+  .contact-title .icon-phone{ color:var(--accent); flex-shrink:0; }
+  .contact-list{ list-style:none; padding:0; margin:24px 0 0; display:flex; flex-direction:column; gap:14px; }
+  .contact-list li{ display:flex; align-items:center; gap:12px; font-size:0.95rem; }
+  .contact-list li svg{ color:var(--accent); flex-shrink:0; }
+  .contact-list li a{ text-decoration:none; }
+  .contact-list li a:hover{ color:var(--accent); }
+  .footer-insta{ text-decoration:none; }
+  .footer-insta:hover{ color:var(--accent); }
+
   .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
   @media (max-width:760px){ .contact-grid{ grid-template-columns:1fr; } }
 
@@ -264,7 +292,6 @@
     <nav class="links" id="navLinks">
       <a href="#ateliers">Ateliers</a>
       <a href="#location">Location</a>
-      <a href="#location-creations">Créations à louer</a>
       <a href="#impression3d">Impression 3D</a>
       <a href="#creations">Créations</a>
       <a href="#reservation">Réserver</a>
@@ -274,6 +301,7 @@
 </header>
 
 <section id="accueil" class="hero" style="border-top:none;">
+  <span class="wip-note">Site en cours de création</span>
   <span class="eyebrow">Atelier de création & transformation à Besançon</span>
   <h1>Je récupère, je répare, je redonne vie aux objets qu'on allait jeter.</h1>
   <p>Électronique, upcycling et impression 3D : ateliers, location de matériel et pièces sur mesure, sur rendez-vous à Besançon.</p>
@@ -321,136 +349,138 @@
 <section id="location">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Location de matériel</span>
-      <h2>Empruntez l'outil, pas besoin de l'acheter</h2>
-      <p>Une sélection d'outils et de machines disponibles à la location, à la journée ou à la semaine. Disponibilité à confirmer avec l'atelier.</p>
-    </div>
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <h3>Outillage électroportatif</h3>
-        <p>Perceuses, ponceuses, scies... pour vos petits chantiers et projets de bricolage.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — outillage électroportatif')">Voir la disponibilité</a>
-      </div>
-      <div class="service-card">
-        <h3>Matériel électronique</h3>
-        <p>Fer à souder, multimètre, station de test... pour vos réparations ou projets à la maison.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — matériel électronique')">Voir la disponibilité</a>
-      </div>
-      <div class="service-card">
-        <h3>Imprimante 3D</h3>
-        <p>Je loue aussi l'imprimante 3D elle-même, si vous préférez imprimer chez vous.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — imprimante 3D')">Voir la disponibilité</a>
-      </div>
-      <div class="service-card">
-        <h3>Un article en particulier ?</h3>
-        <p>Décrivez-moi ce que vous cherchez, je vous dirai si je l'ai et s'il est disponible.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — autre article')">Demander</a>
-      </div>
+      <span class="eyebrow">Location</span>
+      <h2>Empruntez du matériel, ou louez une création</h2>
+      <p>Deux types de location bien différents : l'outillage d'atelier au quotidien, et mes créations pour vos événements.</p>
     </div>
 
-    <div class="availability reveal">
-      <div class="availability-head">
-        <h3>Disponibilités</h3>
-        <span class="avail-note">Calendrier indicatif — toutes les dates sont actuellement libres, à confirmer via le formulaire</span>
-      </div>
-      <div class="avail-grid">
-        <div class="avail-cell avail-day">Lun</div>
-        <div class="avail-cell avail-day">Mar</div>
-        <div class="avail-cell avail-day">Mer</div>
-        <div class="avail-cell avail-day">Jeu</div>
-        <div class="avail-cell avail-day">Ven</div>
-        <div class="avail-cell avail-day">Sam</div>
-        <div class="avail-cell avail-day">Dim</div>
-        <div class="avail-cell avail-free">Libre</div>
-        <div class="avail-cell avail-free">Libre</div>
-        <div class="avail-cell avail-free">Libre</div>
-        <div class="avail-cell avail-free">Libre</div>
-        <div class="avail-cell avail-free">Libre</div>
-        <div class="avail-cell avail-free">Libre</div>
-        <div class="avail-cell avail-free">Libre</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="location-creations">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Créations à louer</span>
-      <h2>Louez mes créations pour un événement</h2>
-      <p>En plus du matériel d'atelier, certaines de mes créations se louent pour des événements, mariages ou animations.</p>
+    <div class="tabs reveal">
+      <button class="tab-btn active" id="tabBtn-materiel" onclick="switchTab('materiel')">Matériel d'atelier</button>
+      <button class="tab-btn" id="tabBtn-creations" onclick="switchTab('creations')">Mes créations</button>
     </div>
 
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <h3>La Cab'sule</h3>
-        <p>Cabine téléphonique juke-box rétro, un voyage dans le temps musical pour vos événements.</p>
-        <a href="#cabsule" class="btn btn-ghost">Découvrir la Cab'sule</a>
+    <div class="tab-panel" id="tab-materiel">
+      <div class="service-grid reveal">
+        <div class="service-card">
+          <h3>Outillage électroportatif</h3>
+          <p>Perceuses, ponceuses, scies... pour vos petits chantiers et projets de bricolage.</p>
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — outillage électroportatif')">Voir la disponibilité</a>
+        </div>
+        <div class="service-card">
+          <h3>Matériel électronique</h3>
+          <p>Fer à souder, multimètre, station de test... pour vos réparations ou projets à la maison.</p>
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — matériel électronique')">Voir la disponibilité</a>
+        </div>
+        <div class="service-card">
+          <h3>Imprimante 3D</h3>
+          <p>Je loue aussi l'imprimante 3D elle-même, si vous préférez imprimer chez vous.</p>
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — imprimante 3D')">Voir la disponibilité</a>
+        </div>
+        <div class="service-card">
+          <h3>Un article en particulier ?</h3>
+          <p>Décrivez-moi ce que vous cherchez, je vous dirai si je l'ai et s'il est disponible.</p>
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — autre article')">Demander</a>
+        </div>
       </div>
-      <div class="service-card">
-        <h3>Téléphone vintage — livre d'or</h3>
-        <p>Un téléphone d'époque qui enregistre les messages de vos invités, pour mariages et anniversaires.</p>
-        <a href="#tel-vintage" class="btn btn-ghost">Découvrir cette option</a>
+
+      <div class="availability reveal">
+        <div class="availability-head">
+          <h3>Disponibilités</h3>
+          <span class="avail-note">Calendrier indicatif — toutes les dates sont actuellement libres, à confirmer via le formulaire</span>
+        </div>
+        <div class="avail-grid">
+          <div class="avail-cell avail-day">Lun</div>
+          <div class="avail-cell avail-day">Mar</div>
+          <div class="avail-cell avail-day">Mer</div>
+          <div class="avail-cell avail-day">Jeu</div>
+          <div class="avail-cell avail-day">Ven</div>
+          <div class="avail-cell avail-day">Sam</div>
+          <div class="avail-cell avail-day">Dim</div>
+          <div class="avail-cell avail-free">Libre</div>
+          <div class="avail-cell avail-free">Libre</div>
+          <div class="avail-cell avail-free">Libre</div>
+          <div class="avail-cell avail-free">Libre</div>
+          <div class="avail-cell avail-free">Libre</div>
+          <div class="avail-cell avail-free">Libre</div>
+          <div class="avail-cell avail-free">Libre</div>
+        </div>
       </div>
     </div>
 
-    <!-- ===== La Cab'sule ===== -->
-    <div class="detail-block reveal" id="cabsule">
-      <h3 class="detail-title">La Cab'sule — cabine téléphonique juke-box</h3>
+    <div class="tab-panel" id="tab-creations" style="display:none;">
+      <p class="tab-intro">En plus du matériel d'atelier, certaines de mes créations se louent pour des événements, mariages ou animations.</p>
 
-      <div class="detail-gallery">
-        <img src="images/cabsule-neon.jpg" alt="Enseigne néon Cabsule à l'entrée de la cabine">
-        <img src="images/cabsule-phone.jpg" alt="Téléphone à cadran vintage de la Cabsule, éclairé par les jeux de lumière">
-        <img src="images/cabsule-use.jpg" alt="Utilisatrice décrochant le combiné de la Cabsule">
+      <div class="service-grid reveal">
+        <div class="service-card">
+          <h3>La Cab'sule</h3>
+          <p>Cabine téléphonique juke-box rétro, un voyage dans le temps musical pour vos événements.</p>
+          <a href="#cabsule" class="btn btn-ghost" onclick="switchTab('creations')">Découvrir la Cab'sule</a>
+        </div>
+        <div class="service-card">
+          <h3>Téléphone vintage — livre d'or</h3>
+          <p>Un téléphone d'époque qui enregistre les messages de vos invités, pour mariages et anniversaires.</p>
+          <a href="#tel-vintage" class="btn btn-ghost" onclick="switchTab('creations')">Découvrir cette option</a>
+        </div>
       </div>
 
-      <h4>Présentation</h4>
-      <p>La Cab'sule, fruit de l'imagination débordante d'un passionné d'électronique et d'upcycling, a vu le jour dans l'atelier Tolstoï à Villeurbanne. En tant que régisseur de théâtre, je suis constamment à la recherche de nouvelles manières de surprendre et d'émerveiller le public. Inspiré par le charme des objets anciens et le potentiel de la technologie moderne, j'ai conçu cette cabine téléphonique juke-box rétro, repensée pour réveiller les souvenirs et offrir une expérience inoubliable aux utilisateurs.</p>
-      <p>Dès que vous pénétrez dans la Cab'sule, vous êtes enveloppé dans une immersion temporelle unique. Le premier geste est de décrocher le combiné du téléphone et de composer une année entre 1940 et aujourd'hui sur le cadran. Une fois votre choix effectué, la cabine vous transporte instantanément vers cette époque en vous offrant une musique aléatoire de son répertoire, sortie cette année-là — comme un bond dans le temps, entre souvenirs chers et découvertes musicales.</p>
-      <p>Mes expériences en régie lumière m'ont permis d'apporter une touche de folie et d'originalité à la Cab'sule, en installant des jeux de lumière en réaction avec la musique sur toutes les parois intérieures, faisant de chaque voyage dans le temps une aventure sensorielle et émotionnelle.</p>
+      <!-- ===== La Cab'sule ===== -->
+      <div class="detail-block reveal" id="cabsule">
+        <h3 class="detail-title">La Cab'sule — cabine téléphonique juke-box</h3>
 
-      <h4>Caractéristiques</h4>
-      <ul class="info-list">
-        <li><span class="k">Dimensions</span> <span>Hauteur 2m20 · Largeur 90cm · Profondeur 1m</span></li>
-        <li><span class="k">Matériaux</span> <span>Structure en chêne massif, parois en PVC</span></li>
-        <li><span class="k">Téléphone</span> <span>Socotel S63 mural d'époque, transformé en juke-box interactif</span></li>
-        <li><span class="k">Fonctionnement</span> <span>On décroche, on compose une année (1940 à aujourd'hui), une musique aléatoire de cette année se lance</span></li>
-        <li><span class="k">Ambiance</span> <span>Jeux de lumière synchronisés avec la musique</span></li>
-      </ul>
+        <div class="detail-gallery">
+          <img src="images/cabsule-neon.jpg" alt="Enseigne néon Cabsule à l'entrée de la cabine">
+          <img src="images/cabsule-phone.jpg" alt="Téléphone à cadran vintage de la Cabsule, éclairé par les jeux de lumière">
+          <img src="images/cabsule-use.jpg" alt="Utilisatrice décrochant le combiné de la Cabsule">
+        </div>
 
-      <h4>Spécifications techniques</h4>
-      <ul class="info-list">
-        <li><span class="k">Montage</span> <span>Doit être fait en ma présence — 6 blocs démontables (3 murs, 1 porte, 1 sol, 1 plafond), charnières rapides, environ 1h</span></li>
-        <li><span class="k">Transport</span> <span>Véhicule avec coffre de 2m20 de long, aller-retour depuis Villeurbanne (69) — modalités à discuter ensemble</span></li>
-      </ul>
+        <h4>Présentation</h4>
+        <p>La Cab'sule, fruit de l'imagination débordante d'un passionné d'électronique et d'upcycling, a vu le jour dans mon ancien atelier, l'atelier Tolstoï à Villeurbanne. En tant que régisseur de théâtre, je suis constamment à la recherche de nouvelles manières de surprendre et d'émerveiller le public. Inspiré par le charme des objets anciens et le potentiel de la technologie moderne, j'ai conçu cette cabine téléphonique juke-box rétro, repensée pour réveiller les souvenirs et offrir une expérience inoubliable aux utilisateurs.</p>
+        <p>Dès que vous pénétrez dans la Cab'sule, vous êtes enveloppé dans une immersion temporelle unique. Le premier geste est de décrocher le combiné du téléphone et de composer une année entre 1940 et aujourd'hui sur le cadran. Une fois votre choix effectué, la cabine vous transporte instantanément vers cette époque en vous offrant une musique aléatoire de son répertoire, sortie cette année-là — comme un bond dans le temps, entre souvenirs chers et découvertes musicales.</p>
+        <p>Mes expériences en régie lumière m'ont permis d'apporter une touche de folie et d'originalité à la Cab'sule, en installant des jeux de lumière en réaction avec la musique sur toutes les parois intérieures, faisant de chaque voyage dans le temps une aventure sensorielle et émotionnelle.</p>
 
-      <h4>Sécurité et précautions</h4>
-      <ul class="info-list">
-        <li><span class="k">Nuit</span> <span>Gardiennage ou surveillance requis en cas d'installation la nuit</span></li>
-        <li><span class="k">Extérieur</span> <span>Bâche de protection fournie à poser la nuit en cas d'exposition en plein air</span></li>
-        <li><span class="k">Incendie</span> <span>Extincteur classe AB à prévoir à proximité</span></li>
-        <li><span class="k">Personnel</span> <span>Formation express des techniciens le jour du montage</span></li>
-      </ul>
+        <h4>Caractéristiques</h4>
+        <ul class="info-list">
+          <li><span class="k">Dimensions</span> <span>Hauteur 2m20 · Largeur 90cm · Profondeur 1m</span></li>
+          <li><span class="k">Matériaux</span> <span>Structure en chêne massif, parois en PVC</span></li>
+          <li><span class="k">Téléphone</span> <span>Socotel S63 mural d'époque, transformé en juke-box interactif</span></li>
+          <li><span class="k">Fonctionnement</span> <span>On décroche, on compose une année (1940 à aujourd'hui), une musique aléatoire de cette année se lance</span></li>
+          <li><span class="k">Ambiance</span> <span>Jeux de lumière et jet de fumée synchronisés avec la musique</span></li>
+        </ul>
 
-      <h4>Tarifs</h4>
-      <ul class="info-list">
-        <li><span class="k">Journée</span> <span>250€</span></li>
-        <li><span class="k">Week-end</span> <span>450€</span></li>
-        <li><span class="k">Semaine</span> <span>850€</span></li>
-        <li><span class="k">Caution</span> <span>1800€</span></li>
-      </ul>
-      <p class="form-note">Frais de transport non compris, variables selon la distance. Tarifs pouvant s'ajuster selon les horaires spécifiques de l'événement.</p>
+        <h4>Spécifications techniques</h4>
+        <ul class="info-list">
+          <li><span class="k">Montage</span> <span>Doit être fait en ma présence — 6 blocs démontables (3 murs, 1 porte, 1 sol, 1 plafond), charnières rapides, environ 1h</span></li>
+          <li><span class="k">Transport</span> <span>Je fournis le véhicule de transport adéquat et m'occupe de la livraison : aller-retour depuis Besançon (25) — modalités à discuter ensemble</span></li>
+        </ul>
 
-      <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — la Cab\'sule')" style="margin-top:10px;">Réserver la Cab'sule</a>
-    </div>
+        <h4>Sécurité et précautions</h4>
+        <ul class="info-list">
+          <li><span class="k">Nuit</span> <span>Gardiennage ou surveillance requis en cas d'installation la nuit</span></li>
+          <li><span class="k">Extérieur</span> <span>Bâche de protection fournie à poser la nuit en cas d'exposition en plein air</span></li>
+          <li><span class="k">Incendie</span> <span>Extincteur classe AB à prévoir à proximité</span></li>
+          <li><span class="k">Personnel</span> <span>Formation express des techniciens le jour du montage</span></li>
+        </ul>
 
-    <!-- ===== Téléphone vintage livre d'or ===== -->
-    <div class="detail-block reveal" id="tel-vintage">
-      <h3 class="detail-title">Téléphone vintage — livre d'or</h3>
-      <div class="piece-media" style="height:200px; max-width:420px;">Photo à venir</div>
-      <p style="margin-top:18px;">Idéal pour les mariages, anniversaires ou autres événements : vos invités décrochent un téléphone d'époque et laissent un message personnalisé, qui est enregistré sur une carte SD comme souvenir.</p>
-      <p class="form-note">Photo et description complète en cours de création.</p>
-      <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — téléphone vintage livre d\'or')" style="margin-top:10px;">Me contacter pour cette option</a>
+        <h4>Tarifs</h4>
+        <ul class="info-list">
+          <li><span class="k">Journée</span> <span>250€</span></li>
+          <li><span class="k">Week-end</span> <span>450€</span></li>
+          <li><span class="k">Semaine</span> <span>850€</span></li>
+          <li><span class="k">Caution</span> <span>1800€</span></li>
+        </ul>
+        <p class="form-note">Frais de transport non compris, variables selon la distance. Tarifs pouvant s'ajuster selon les horaires spécifiques de l'événement.</p>
+
+        <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — la Cab\'sule')" style="margin-top:10px;">Réserver la Cab'sule</a>
+      </div>
+
+      <!-- ===== Téléphone vintage livre d'or ===== -->
+      <div class="detail-block reveal" id="tel-vintage">
+        <h3 class="detail-title">Téléphone vintage — livre d'or</h3>
+        <div class="piece-media" style="height:200px; max-width:420px;">Photo à venir</div>
+        <p style="margin-top:18px;">Idéal pour les mariages, anniversaires ou autres événements : vos invités décrochent un téléphone d'époque et laissent un message personnalisé, qui est enregistré sur une carte SD comme souvenir.</p>
+        <p class="form-note">Photo et description complète en cours de création.</p>
+        <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — téléphone vintage livre d\'or')" style="margin-top:10px;">Me contacter pour cette option</a>
+      </div>
     </div>
   </div>
 </section>
@@ -559,7 +589,7 @@
         <h2>Un lieu pour fabriquer, réparer, upcycler</h2>
         <p>AtelierTransfo est un espace de création où électronique, upcycling et impression 3D se croisent. Ici, on répare, on détourne, on redonne vie aux objets plutôt que de les jeter — l'upcycling est au cœur de chaque projet.</p>
         <p>Beaucoup de mes créations naissent d'appareils électroniques obsolètes que je démonte et récupère. Vous avez du matériel hors service qui dort dans un tiroir ou un garage ? Ne le déposez pas à la déchetterie — venez me le confier, ça vaut de l'or à mes yeux.</p>
-        <p>Je suis aussi régisseur de théâtre, spécialisé lumière et plateau — une autre vie faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique ici.</p>
+        <p>Je suis aussi régisseur de théâtre, spécialisé lumière et plateau. J'y conçois et fabrique aussi des éléments de décor et de la machinerie scénique — du petit objet interactif sans fil à la grosse machine motorisée. Une autre vie faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique ici.</p>
       </div>
       <ul class="info-list">
         <li><span class="k">Adresse</span> <span>1 rue Général Rolland, 25000 Besançon</span></li>
@@ -639,13 +669,31 @@
     <div class="contact-grid reveal">
       <div>
         <span class="eyebrow">Contact</span>
-        <h2>Une question, avant tout ?</h2>
+        <h2 class="contact-title">
+          <svg class="icon-phone" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="9" width="16" height="10" rx="2"/>
+            <circle cx="12" cy="14" r="3.2"/>
+            <circle cx="12" cy="14" r="0.5" fill="currentColor" stroke="none"/>
+            <path d="M6 9c0-2.5 1.5-4 3-4h6c1.5 0 3 1.5 3 4"/>
+          </svg>
+          Une question, avant tout ?
+        </h2>
         <p style="color:var(--muted);">Pas besoin de passer par le formulaire de réservation pour une simple question — écrivez-moi directement.</p>
-        <p style="margin-top:24px;">
-          <strong>Email :</strong> <a href="mailto:ateliertransfo@hotmail.com">ateliertransfo@hotmail.com</a><br>
-          <strong>Adresse :</strong> 1 rue Général Rolland, 25000 Besançon<br>
-          <strong>Instagram :</strong> <a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener">@ateliertransfo</a>
-        </p>
+
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <a href="mailto:ateliertransfo@hotmail.com">ateliertransfo@hotmail.com</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.8"/></svg>
+            <span>1 rue Général Rolland, 25000 Besançon</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg>
+            <a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener">@ateliertransfo</a>
+          </li>
+        </ul>
       </div>
       <div>
         <p style="color:var(--muted); font-size:0.9rem;">
@@ -659,7 +707,9 @@
 <footer>
   <p>
     © 2026 AtelierTransfo — Besançon &nbsp;·&nbsp;
-    <a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener">@ateliertransfo sur Instagram</a>
+    <a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener" class="footer-insta">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px; margin-right:4px;"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg>@ateliertransfo sur Instagram
+    </a>
   </p>
 </footer>
 
@@ -676,7 +726,17 @@
     burger.setAttribute('aria-expanded', 'false');
   }));
 
-  // pré-sélection du type de demande depuis les boutons des sections
+  // onglets de la section Location
+  function switchTab(name){
+    document.getElementById('tab-materiel').style.display = (name === 'materiel') ? '' : 'none';
+    document.getElementById('tab-creations').style.display = (name === 'creations') ? '' : 'none';
+    document.getElementById('tabBtn-materiel').classList.toggle('active', name === 'materiel');
+    document.getElementById('tabBtn-creations').classList.toggle('active', name === 'creations');
+  }
+  // si on arrive directement sur un lien #cabsule ou #tel-vintage, on ouvre le bon onglet
+  if (['#cabsule', '#tel-vintage'].includes(window.location.hash)){
+    switchTab('creations');
+  }
   function preselect(value){
     const select = document.getElementById('type');
     for (const opt of select.options){
