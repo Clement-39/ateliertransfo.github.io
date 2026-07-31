@@ -84,9 +84,42 @@
     display:inline-block; color:var(--accent); font-size:0.8rem; letter-spacing:0.14em;
     text-transform:uppercase; font-weight:600; margin-bottom:18px;
   }
-  .wip-note{
-    display:block; color:var(--muted); font-size:0.72rem; letter-spacing:0.1em;
-    text-transform:uppercase; margin-bottom:10px; opacity:0.75;
+  .wip-badge{
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(255,224,0,0.1); border:1px solid var(--accent-dim);
+    padding:9px 20px; border-radius:30px; margin-bottom:16px;
+  }
+  .wip-text{
+    color:var(--accent); font-weight:700; font-size:0.95rem;
+    letter-spacing:0.06em; text-transform:uppercase;
+  }
+  .wip-icon{ color:var(--accent); overflow:visible; }
+  .hammer-arm{
+    transform-origin:11px 8px;
+    animation:hammer-swing 1.1s ease-in-out infinite;
+  }
+  @keyframes hammer-swing{
+    0%, 15%{ transform:rotate(0deg); }
+    40%, 55%{ transform:rotate(95deg); }
+    100%{ transform:rotate(0deg); }
+  }
+  .impact{ opacity:0; animation:impact-flash 1.1s ease-in-out infinite; }
+  @keyframes impact-flash{
+    0%, 35%{ opacity:0; }
+    42%, 55%{ opacity:1; }
+    65%, 100%{ opacity:0; }
+  }
+  .wip-bar{
+    width:200px; height:5px; margin:0 auto 30px;
+    background:var(--surface-2); border-radius:10px; overflow:hidden;
+  }
+  .wip-bar-fill{
+    width:35%; height:100%; border-radius:10px; background:var(--accent);
+    animation:wip-slide 1.5s ease-in-out infinite;
+  }
+  @keyframes wip-slide{
+    0%{ margin-left:-35%; }
+    100%{ margin-left:100%; }
   }
   .hero h1{
     font-size:clamp(2.2rem, 5vw, 3.6rem);
@@ -301,7 +334,26 @@
 </header>
 
 <section id="accueil" class="hero" style="border-top:none;">
-  <span class="wip-note">Site en cours de création</span>
+  <div class="wip-badge">
+    <svg class="wip-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="20.6" x2="18.5" y2="20.6"/>
+        <circle cx="11" cy="4.4" r="2" fill="none"/>
+        <path d="M11 6.4v5.6"/>
+        <path d="M11 12 L8.5 20 M11 12 L13 20"/>
+        <path d="M11 8 L8.3 10.8"/>
+        <g class="hammer-arm">
+          <path d="M11 8 L16 4"/>
+          <rect x="15" y="1.7" width="5" height="2.3" rx="0.5" fill="currentColor" stroke="none" transform="rotate(38 17.5 2.85)"/>
+        </g>
+        <g class="impact">
+          <path d="M15.5 19 L17.3 17.7 M17.5 19.6 L19.3 18.5"/>
+        </g>
+      </g>
+    </svg>
+    <span class="wip-text">Site en cours de création</span>
+  </div>
+  <div class="wip-bar"><div class="wip-bar-fill"></div></div>
   <span class="eyebrow">Atelier de création & transformation à Besançon</span>
   <h1>Je récupère, je répare, je redonne vie aux objets qu'on allait jeter.</h1>
   <p>Électronique, upcycling et impression 3D : ateliers, location de matériel et pièces sur mesure, sur rendez-vous à Besançon.</p>
