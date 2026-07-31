@@ -86,22 +86,22 @@
     text-transform:uppercase; font-weight:600; margin-bottom:18px;
   }
   .wip-badge{
-    display:inline-flex; align-items:center; gap:10px;
+    display:inline-flex; align-items:center; gap:14px;
     background:rgba(255,224,0,0.1); border:1px solid var(--accent-dim);
-    padding:9px 20px; border-radius:30px; margin-bottom:16px;
+    padding:11px 26px; border-radius:36px; margin-bottom:16px;
   }
   .wip-text{
-    color:var(--accent); font-weight:700; font-size:0.95rem;
+    color:var(--accent); font-weight:700; font-size:1.15rem;
     letter-spacing:0.06em; text-transform:uppercase;
   }
   .wip-icon{ color:var(--accent); overflow:visible; }
   .jack-figure, .jack-tool{
-    animation:jack-vibrate 0.11s linear infinite;
+    animation:jack-bounce 0.32s ease-in-out infinite;
   }
-  @keyframes jack-vibrate{
-    0%{ transform:translate(0,0); }
-    50%{ transform:translate(0.4px,0.7px); }
-    100%{ transform:translate(0,0); }
+  @keyframes jack-bounce{
+    0%, 100%{ transform:translateY(0); }
+    35%{ transform:translateY(-3.2px); }
+    55%{ transform:translateY(0.6px); }
   }
   .jack-dust circle{ opacity:0; }
   .jack-dust circle:nth-child(1){ animation:dust-pop 1.1s ease-out infinite; }
@@ -371,7 +371,7 @@
 
 <section id="accueil" class="hero" style="border-top:none;">
   <div class="wip-badge">
-    <svg class="wip-icon" viewBox="0 0 32 32" width="52" height="52" aria-hidden="true">
+    <svg class="wip-icon" viewBox="0 0 32 32" width="66" height="66" aria-hidden="true">
       <line x1="4" y1="27.5" x2="27" y2="27.5" stroke="var(--line)" stroke-width="1.4"/>
       <g class="jack-figure">
         <!-- jambes écartées, position stable -->
@@ -540,7 +540,7 @@
       <p class="tab-intro">En plus du matériel d'atelier, certaines de mes créations se louent pour des événements, mariages ou animations.</p>
 
       <div class="service-grid reveal">
-        <div class="service-card photo-card" style="background-image:linear-gradient(to top, rgba(30,53,39,0.94), rgba(30,53,39,0.25) 65%), url('images/cabsule-preview.jpg');">
+        <div class="service-card photo-card" style="background-image:linear-gradient(to top, rgba(30,53,39,0.94), rgba(30,53,39,0.25) 65%), url('images/cabsule-preview.jpg'); background-position:center top;">
           <h3>La Cab'sule</h3>
           <p>Cabine téléphonique juke-box rétro, un voyage dans le temps musical pour vos événements.</p>
           <a href="#cabsule" class="btn btn-ghost" onclick="switchTab('creations')">Découvrir la Cab'sule</a>
@@ -606,7 +606,7 @@
       <div class="detail-block reveal" id="tel-vintage">
         <h3 class="detail-title">Téléphone vintage — livre d'or</h3>
         <div class="piece-media" style="height:200px; max-width:420px;">Photo à venir</div>
-        <p style="margin-top:18px;">Idéal pour les mariages, anniversaires ou autres événements : vos invités décrochent un téléphone d'époque et laissent un message personnalisé, qui est enregistré sur une carte SD comme souvenir.</p>
+        <p style="margin-top:18px;">Idéal pour les mariages, anniversaires ou autres événements : vos invités décrochent un téléphone d'époque et laissent un message personnalisé, qui est enregistré sur une carte SD, afin de tout récupérer en souvenir.</p>
         <p class="form-note">Photo et description complète en cours de création.</p>
         <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — téléphone vintage livre d\'or')" style="margin-top:10px;">Me contacter pour cette option</a>
       </div>
@@ -635,6 +635,7 @@
       <div class="service-card">
         <h3>Pièce sur mesure</h3>
         <p>Vous n'avez pas de fichier ? Décrivez la pièce dont vous avez besoin, on s'occupe de la conception et de l'impression.</p>
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:-6px;">Prix ajustable en fonction de la pièce demandée.</p>
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — demande de pièce personnalisée')">Faire une demande</a>
       </div>
       <div class="service-card">
