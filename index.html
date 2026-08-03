@@ -96,15 +96,29 @@
   }
   .wip-icon{ display:block; }
 
-  .pink-note{
-    display:inline-flex; align-items:center; gap:6px;
-    color:#E58AB5; font-size:0.85rem; font-weight:500;
-    text-decoration:none; margin:2px 0 22px; max-width:480px;
-    border-bottom:1px dashed rgba(229,138,181,0.4); padding-bottom:2px;
-    transition:color 0.15s, border-color 0.15s;
+  .hero-headline-row{
+    display:flex; align-items:center; justify-content:center;
+    gap:16px; flex-wrap:wrap; margin-bottom:24px;
   }
-  .pink-note:hover{ color:#F3AECF; border-color:rgba(243,174,207,0.7); }
-  .pink-arrow{ font-size:1rem; }
+  .pink-burst{
+    position:relative; display:inline-flex; align-items:center; justify-content:center;
+    width:190px; height:140px; flex-shrink:0; text-decoration:none;
+    animation:burst-pulse 3.2s ease-in-out infinite;
+  }
+  .pink-burst-shape{ position:absolute; inset:0; width:100%; height:100%; }
+  .pink-burst-text{
+    position:relative; z-index:1; color:var(--bg); font-weight:700;
+    text-align:center; font-size:0.56rem; line-height:1.3; padding:0 30px;
+  }
+  .pink-burst:hover{ animation-play-state:paused; transform:scale(1.05); }
+  @keyframes burst-pulse{
+    0%, 100%{ transform:scale(1); }
+    50%{ transform:scale(1.035); }
+  }
+  @media (max-width:560px){
+    .pink-burst{ width:150px; height:112px; }
+    .pink-burst-text{ font-size:0.48rem; padding:0 22px; }
+  }
   .pink-inline-link{ color:#E58AB5; text-decoration:underline; }
   .pink-inline-link:hover{ color:#F3AECF; }
 
@@ -480,10 +494,16 @@
     <span class="wip-text">Site en cours de création</span>
   </div>
   <div class="wip-bar"><div class="wip-bar-fill"></div></div>
-  <span class="eyebrow">Atelier de création & transformation à Besançon</span>
-  <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-note">
-    <span class="pink-arrow">↳</span> Au Pink Atelier — un nouveau lieu tout juste ouvert à Besançon, avec 19 créateurices... dont moi !
-  </a>
+  <div class="hero-headline-row">
+    <span class="eyebrow" style="margin-bottom:0;">Atelier de création & transformation à Besançon</span>
+    <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-burst" aria-label="Le Pink Atelier, nouveau lieu à Besançon avec 19 créateurices dont moi — découvrir sur Instagram">
+      <svg class="pink-burst-shape" viewBox="0 0 200 170" aria-hidden="true">
+        <polygon points="100.0,12.5 114.9,32.6 142.0,16.4 138.8,46.1 172.4,41.0 155.8,64.6 188.7,73.2 161.3,88.1 178.9,106.5 147.1,108.6 160.3,137.8 127.7,125.3 121.6,153.9 100.0,128.8 79.1,151.7 71.5,126.5 43.2,134.5 48.4,111.2 14.4,108.6 43.2,87.7 16.8,73.7 43.7,64.5 24.4,39.2 60.7,45.6 60.3,19.9 85.8,34.6" fill="var(--bg)"/>
+        <polygon points="100.0,18.8 113.4,37.5 138.2,22.4 134.9,49.7 165.8,44.8 150.2,66.4 180.6,74.0 155.2,87.5 171.8,104.3 142.3,106.0 154.8,132.8 124.9,120.9 119.6,147.4 100.0,124.1 81.0,145.3 74.3,122.1 48.4,129.8 53.6,108.3 22.2,106.2 48.9,87.1 24.4,74.5 49.3,66.2 31.3,43.1 64.6,49.2 63.9,25.6 87.2,39.3" fill="var(--accent)"/>
+      </svg>
+      <span class="pink-burst-text">Le Pink Atelier — nouveau lieu à Besançon, 19 créateurices... dont moi ! <strong>Venez découvrir ⚡</strong></span>
+    </a>
+  </div>
   <h1>Je récupère, je répare, je redonne vie aux objets qu'on allait jeter.</h1>
   <p>Électronique, upcycling et impression 3D : ateliers, location de matériel et pièces sur mesure, sur rendez-vous à Besançon.</p>
   <div class="cta-row">
