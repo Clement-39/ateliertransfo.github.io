@@ -782,7 +782,7 @@
       <div class="video-panel-inner">
         <button class="video-close" onclick="toggleVideoPanel(event)" aria-label="Fermer la vidéo">✕</button>
         <div class="video-embed">
-          <iframe src="" data-src="https://www.youtube.com/embed/jG-U3vSpUnM" title="Fabrication de filament PET recyclé — Atelier Transfo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/jG-U3vSpUnM" title="Fabrication de filament PET recyclé — Atelier Transfo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         </div>
         <p class="form-note" style="margin-top:14px;">Comment je fabrique du filament PET à partir de bouteilles plastiques récupérées.</p>
       </div>
@@ -1077,13 +1077,13 @@
     if (isOpen){
       panel.classList.remove('open');
       const iframe = panel.querySelector('iframe');
-      iframe.src = ''; // stoppe la lecture à la fermeture
+      iframe.removeAttribute('src'); // stoppe la lecture à la fermeture
     } else {
       panel.classList.toggle('slide-right', videoSlideToggle);
       videoSlideToggle = !videoSlideToggle;
       panel.classList.add('open');
       const iframe = panel.querySelector('iframe');
-      if (!iframe.src) iframe.src = iframe.dataset.src;
+      iframe.src = iframe.dataset.src;
       panel.scrollIntoView({ behavior:'smooth', block:'center' });
     }
   }
