@@ -316,6 +316,36 @@
   .tab-btn.active{ background:var(--accent); color:var(--bg); border-color:var(--accent); }
   .tab-intro{ color:var(--muted); margin:0 0 32px; max-width:560px; }
 
+  /* ---------- Video panel (filament PET) ---------- */
+  .video-panel{
+    max-height:0; opacity:0; overflow:hidden; margin-top:0;
+    transition:max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .video-panel.open{
+    max-height:640px; opacity:1; margin-top:34px;
+  }
+  .video-panel-inner{
+    position:relative; background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius); padding:24px;
+    transform:translateX(-24px); opacity:0;
+    transition:transform 0.5s ease 0.1s, opacity 0.5s ease 0.1s;
+  }
+  .video-panel.open .video-panel-inner{ transform:translateX(0); opacity:1; }
+  .video-panel.slide-right .video-panel-inner{ transform:translateX(24px); }
+  .video-panel.slide-right.open .video-panel-inner{ transform:translateX(0); }
+  .video-embed{
+    position:relative; width:100%; max-width:360px; margin:0 auto;
+    aspect-ratio:9/16; border-radius:var(--radius); overflow:hidden;
+    background:var(--bg);
+  }
+  .video-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-close{
+    position:absolute; top:14px; right:14px; background:var(--surface-2);
+    border:1px solid var(--line); color:var(--text); border-radius:50%;
+    width:30px; height:30px; cursor:pointer; font-size:0.9rem; line-height:1;
+  }
+  .video-close:hover{ border-color:var(--accent); color:var(--accent); }
+
   /* ---------- Detail blocks (Cab'sule, téléphone vintage...) ---------- */
   .detail-block{
     margin-top:56px; padding-top:48px; border-top:1px dashed var(--line);
@@ -726,30 +756,35 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Impression 3D</span>
-      <h2>Réservez une journée d'impression, ou une pièce sur mesure</h2>
+      <h2>Réservez un créneau d'impression, avec ou sans fichier</h2>
       <p>Que vous ayez déjà un fichier 3D prêt à imprimer, ou juste une idée à faire naître, on en discute ensemble.</p>
     </div>
     <div class="how-it-works reveal">
       <div class="how-step"><div class="n">1. Vous décrivez</div><p>Votre besoin, votre fichier (si vous en avez un), ou votre idée de pièce.</p></div>
-      <div class="how-step"><div class="n">2. On en discute</div><p>Faisabilité, matière, délai — on revient vers vous rapidement.</p></div>
-      <div class="how-step"><div class="n">3. On imprime</div><p>À l'atelier, avec un créneau réservé à l'avance.</p></div>
+      <div class="how-step"><div class="n">2. J'étudie la demande</div><p>Faisabilité, matière, délai — je reviens vers vous rapidement.</p></div>
+      <div class="how-step"><div class="n">3. J'imprime</div><p>À l'atelier, sur un créneau réservé à l'avance.</p></div>
     </div>
     <div class="service-grid reveal" style="margin-top:36px;">
       <div class="service-card">
-        <h3>Journée d'impression</h3>
-        <p>Vous réservez une plage horaire pour venir imprimer votre propre fichier sur nos machines.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — réserver une journée')">Réserver une journée</a>
-      </div>
-      <div class="service-card">
-        <h3>Pièce sur mesure</h3>
-        <p>Vous n'avez pas de fichier ? Décrivez la pièce dont vous avez besoin, on s'occupe de la conception et de l'impression.</p>
-        <p style="color:var(--muted); font-size:0.8rem; margin-top:-6px;">Prix ajustable en fonction de la pièce demandée.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — demande de pièce personnalisée')">Faire une demande</a>
+        <h3>Réserver un créneau</h3>
+        <p>Avec un fichier prêt à l'emploi ou juste une idée de pièce, je réserve un créneau à l'atelier pour m'en occuper.</p>
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:-6px;">Le prix dépend de la pièce demandée.</p>
+        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — réserver un créneau')">Réserver un créneau</a>
       </div>
       <div class="service-card">
         <h3>Filament recyclé (PET)</h3>
-        <p>Je transforme des bouteilles plastiques récupérées en filament PET pour l'impression 3D — une option upcycling pour vos pièces.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Impression 3D — filament recyclé PET')">En savoir plus</a>
+        <p>J'ai du PLA et du PETG dans plusieurs couleurs. Mais si la couleur ne vous importe pas, je privilégie en premier lieu le PET recyclé, que je fabrique moi-même à partir de bouteilles en plastique récupérées.</p>
+        <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event)">Découvrir</a>
+      </div>
+    </div>
+
+    <div class="video-panel" id="video-pet">
+      <div class="video-panel-inner">
+        <button class="video-close" onclick="toggleVideoPanel(event)" aria-label="Fermer la vidéo">✕</button>
+        <div class="video-embed">
+          <iframe src="" data-src="https://www.youtube.com/embed/NvykHJsed0E" title="Fabrication de filament PET recyclé — Atelier Transfo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p class="form-note" style="margin-top:14px;">Comment je fabrique du filament PET à partir de bouteilles plastiques récupérées.</p>
       </div>
     </div>
   </div>
@@ -892,9 +927,7 @@
           <option>Location de matériel — matériel électronique</option>
           <option>Location de matériel — imprimante 3D</option>
           <option>Location de matériel — autre article</option>
-          <option>Impression 3D — réserver une journée</option>
-          <option>Impression 3D — demande de pièce personnalisée</option>
-          <option>Impression 3D — filament recyclé PET</option>
+          <option>Impression 3D — réserver un créneau</option>
           <option>Location de créations — la Cab'sule</option>
           <option>Location de créations — téléphone vintage livre d'or</option>
           <option>Créations — demande sur une pièce</option>
@@ -1034,6 +1067,27 @@
   if (['#cabsule', '#tel-vintage'].includes(window.location.hash)){
     switchTab('creations');
   }
+
+  // ouverture/fermeture du panneau vidéo (filament PET), en alternant le sens du glissement
+  let videoSlideToggle = false;
+  function toggleVideoPanel(e){
+    e.preventDefault();
+    const panel = document.getElementById('video-pet');
+    const isOpen = panel.classList.contains('open');
+    if (isOpen){
+      panel.classList.remove('open');
+      const iframe = panel.querySelector('iframe');
+      iframe.src = ''; // stoppe la lecture à la fermeture
+    } else {
+      panel.classList.toggle('slide-right', videoSlideToggle);
+      videoSlideToggle = !videoSlideToggle;
+      panel.classList.add('open');
+      const iframe = panel.querySelector('iframe');
+      if (!iframe.src) iframe.src = iframe.dataset.src;
+      panel.scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+  }
+
   function preselect(value){
     const select = document.getElementById('type');
     for (const opt of select.options){
