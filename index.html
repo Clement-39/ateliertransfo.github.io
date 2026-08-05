@@ -110,13 +110,13 @@
   }
   .pink-burst{
     position:relative; display:inline-flex; align-items:center; justify-content:center;
-    width:460px; height:320px; flex-shrink:0; text-decoration:none;
+    width:600px; height:320px; flex-shrink:0; text-decoration:none;
     animation:burst-pulse 3.2s ease-in-out infinite;
   }
   .pink-burst-shape{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
   .pink-burst-text{
     position:relative; z-index:1; color:var(--bg); font-weight:800;
-    text-align:center; font-size:0.7rem; line-height:1.3; padding:0 128px;
+    text-align:center; font-size:0.7rem; line-height:1.3; padding:0 198px;
   }
   .pink-burst:hover{ animation-play-state:paused; transform:scale(1.05); }
   @keyframes burst-pulse{
@@ -125,8 +125,8 @@
   }
   @media (max-width:700px){
     .hero-headline-row{ margin-bottom:4px; }
-    .pink-burst{ width:320px; height:230px; }
-    .pink-burst-text{ font-size:0.54rem; padding:0 88px; }
+    .pink-burst{ width:380px; height:230px; }
+    .pink-burst-text{ font-size:0.54rem; padding:0 128px; }
   }
   .pink-inline-link{ color:#E58AB5; text-decoration:underline; }
   .pink-inline-link:hover{ color:#F3AECF; }
@@ -246,6 +246,11 @@
   .availability-head{ display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
   .availability-head h3{ font-size:1.05rem; margin:0; }
   .avail-note{ font-size:0.8rem; color:var(--muted); }
+  .avail-group{ margin-bottom:26px; }
+  .avail-group:last-child{ margin-bottom:0; }
+  .avail-group-title{
+    font-size:0.85rem; color:var(--accent); margin:0 0 10px; font-weight:600;
+  }
   .avail-grid{
     display:grid; grid-template-columns:repeat(7, 1fr); gap:8px;
   }
@@ -339,6 +344,7 @@
     background:var(--bg);
   }
   .video-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-embed-vertical{ max-width:320px; aspect-ratio:9/16; }
   .video-close{
     position:absolute; top:14px; right:14px; background:var(--surface-2);
     border:1px solid var(--line); color:var(--text); border-radius:50%;
@@ -622,11 +628,11 @@
     </div>
 
     <div class="tabs reveal">
-      <button class="tab-btn active" id="tabBtn-materiel" onclick="switchTab('materiel')">Matériel d'atelier</button>
-      <button class="tab-btn" id="tabBtn-creations" onclick="switchTab('creations')">Mes créations</button>
+      <button class="tab-btn active" id="tabBtn-creations" onclick="switchTab('creations')">Mes créations</button>
+      <button class="tab-btn" id="tabBtn-materiel" onclick="switchTab('materiel')">Matériel d'atelier</button>
     </div>
 
-    <div class="tab-panel" id="tab-materiel">
+    <div class="tab-panel" id="tab-materiel" style="display:none;">
       <div class="service-grid reveal">
         <div class="service-card">
           <h3>Outillage électroportatif</h3>
@@ -639,9 +645,9 @@
           <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — matériel électronique')">Voir la disponibilité</a>
         </div>
         <div class="service-card">
-          <h3>Imprimante 3D</h3>
-          <p>Je loue aussi l'imprimante 3D elle-même, si vous préférez imprimer chez vous.</p>
-          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — imprimante 3D')">Voir la disponibilité</a>
+          <h3>Matériel de spectacle</h3>
+          <p>Je loue aussi du matériel scénique et de lumière : LED, machines asservies, ponts lumière, pieds de levage, câbles DMX et bien d'autres choses.</p>
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Location de matériel — matériel de spectacle')">Voir la disponibilité</a>
         </div>
         <div class="service-card">
           <h3>Un article en particulier ?</h3>
@@ -653,28 +659,72 @@
       <div class="availability reveal">
         <div class="availability-head">
           <h3>Disponibilités</h3>
-          <span class="avail-note">Calendrier indicatif — toutes les dates sont actuellement libres, à confirmer via le formulaire</span>
+          <span class="avail-note">Calendriers indicatifs, un par catégorie de matériel — toutes les dates sont actuellement libres, à confirmer via le formulaire</span>
         </div>
-        <div class="avail-grid">
-          <div class="avail-cell avail-day">Lun</div>
-          <div class="avail-cell avail-day">Mar</div>
-          <div class="avail-cell avail-day">Mer</div>
-          <div class="avail-cell avail-day">Jeu</div>
-          <div class="avail-cell avail-day">Ven</div>
-          <div class="avail-cell avail-day">Sam</div>
-          <div class="avail-cell avail-day">Dim</div>
-          <div class="avail-cell avail-free">Libre</div>
-          <div class="avail-cell avail-free">Libre</div>
-          <div class="avail-cell avail-free">Libre</div>
-          <div class="avail-cell avail-free">Libre</div>
-          <div class="avail-cell avail-free">Libre</div>
-          <div class="avail-cell avail-free">Libre</div>
-          <div class="avail-cell avail-free">Libre</div>
+
+        <div class="avail-group">
+          <h4 class="avail-group-title">Outillage électroportatif</h4>
+          <div class="avail-grid">
+            <div class="avail-cell avail-day">Lun</div>
+            <div class="avail-cell avail-day">Mar</div>
+            <div class="avail-cell avail-day">Mer</div>
+            <div class="avail-cell avail-day">Jeu</div>
+            <div class="avail-cell avail-day">Ven</div>
+            <div class="avail-cell avail-day">Sam</div>
+            <div class="avail-cell avail-day">Dim</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+          </div>
+        </div>
+
+        <div class="avail-group">
+          <h4 class="avail-group-title">Matériel électronique</h4>
+          <div class="avail-grid">
+            <div class="avail-cell avail-day">Lun</div>
+            <div class="avail-cell avail-day">Mar</div>
+            <div class="avail-cell avail-day">Mer</div>
+            <div class="avail-cell avail-day">Jeu</div>
+            <div class="avail-cell avail-day">Ven</div>
+            <div class="avail-cell avail-day">Sam</div>
+            <div class="avail-cell avail-day">Dim</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+          </div>
+        </div>
+
+        <div class="avail-group">
+          <h4 class="avail-group-title">Matériels de spectacle</h4>
+          <div class="avail-grid">
+            <div class="avail-cell avail-day">Lun</div>
+            <div class="avail-cell avail-day">Mar</div>
+            <div class="avail-cell avail-day">Mer</div>
+            <div class="avail-cell avail-day">Jeu</div>
+            <div class="avail-cell avail-day">Ven</div>
+            <div class="avail-cell avail-day">Sam</div>
+            <div class="avail-cell avail-day">Dim</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+            <div class="avail-cell avail-free">Libre</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="tab-panel" id="tab-creations" style="display:none;">
+    <div class="tab-panel" id="tab-creations">
       <p class="tab-intro">En plus du matériel d'atelier, certaines de mes créations se louent pour des événements, mariages ou animations.</p>
 
       <div class="service-grid reveal">
@@ -774,17 +824,45 @@
       <div class="service-card">
         <h3>Filament recyclé (PET)</h3>
         <p>J'ai du PLA et du PETG dans plusieurs couleurs. Mais si la couleur ne vous importe pas, je privilégie en premier lieu le PET recyclé, que je fabrique moi-même à partir de bouteilles en plastique récupérées.</p>
-        <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event)">Découvrir</a>
+        <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-pet')">Découvrir</a>
+      </div>
+      <div class="service-card">
+        <h3>Stylo & découpe (Bambu Lab A2L)</h3>
+        <p>Une extension stylo et cutter sur mon imprimante permet de dessiner sur différents supports, puis de découper — par exemple sur une feuille autocollante, pour créer vos propres stickers sur mesure.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="#video-draw" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-draw')">Voir le dessin</a>
+          <a href="#video-cut" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-cut')">Voir la découpe</a>
+        </div>
       </div>
     </div>
 
     <div class="video-panel" id="video-pet">
       <div class="video-panel-inner">
-        <button class="video-close" onclick="toggleVideoPanel(event)" aria-label="Fermer la vidéo">✕</button>
+        <button class="video-close" onclick="toggleVideoPanel(event, 'video-pet')" aria-label="Fermer la vidéo">✕</button>
         <div class="video-embed">
           <iframe data-src="https://www.youtube.com/embed/jG-U3vSpUnM" title="Fabrication de filament PET recyclé — Atelier Transfo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         </div>
         <p class="form-note" style="margin-top:14px;">Comment je fabrique du filament PET à partir de bouteilles plastiques récupérées.</p>
+      </div>
+    </div>
+
+    <div class="video-panel" id="video-draw">
+      <div class="video-panel-inner">
+        <button class="video-close" onclick="toggleVideoPanel(event, 'video-draw')" aria-label="Fermer la vidéo">✕</button>
+        <div class="video-embed">
+          <iframe data-src="https://www.youtube.com/embed/XRlVLBEzEGU" title="Extension stylo sur imprimante 3D — Atelier Transfo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p class="form-note" style="margin-top:14px;">L'extension stylo qui dessine directement sur différents supports.</p>
+      </div>
+    </div>
+
+    <div class="video-panel" id="video-cut">
+      <div class="video-panel-inner">
+        <button class="video-close" onclick="toggleVideoPanel(event, 'video-cut')" aria-label="Fermer la vidéo">✕</button>
+        <div class="video-embed video-embed-vertical">
+          <iframe data-src="https://www.youtube.com/embed/EQZ2Njpdjb4" title="Extension cutter sur imprimante 3D — Atelier Transfo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p class="form-note" style="margin-top:14px;">L'extension cutter, ici sur une feuille autocollante pour créer des stickers sur mesure.</p>
       </div>
     </div>
   </div>
@@ -925,7 +1003,7 @@
           <option>Atelier électronique — projet upcycling</option>
           <option>Location de matériel — outillage électroportatif</option>
           <option>Location de matériel — matériel électronique</option>
-          <option>Location de matériel — imprimante 3D</option>
+          <option>Location de matériel — matériel de spectacle</option>
           <option>Location de matériel — autre article</option>
           <option>Impression 3D — réserver un créneau</option>
           <option>Location de créations — la Cab'sule</option>
@@ -1068,11 +1146,11 @@
     switchTab('creations');
   }
 
-  // ouverture/fermeture du panneau vidéo (filament PET), en alternant le sens du glissement
+  // ouverture/fermeture d'un panneau vidéo, en alternant le sens du glissement
   let videoSlideToggle = false;
-  function toggleVideoPanel(e){
+  function toggleVideoPanel(e, panelId){
     e.preventDefault();
-    const panel = document.getElementById('video-pet');
+    const panel = document.getElementById(panelId);
     const isOpen = panel.classList.contains('open');
     if (isOpen){
       panel.classList.remove('open');
