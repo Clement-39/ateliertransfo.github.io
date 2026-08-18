@@ -404,6 +404,11 @@
   .about-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:start; }
   @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
   .about-grid p{ color:var(--muted); }
+  .about-text{ max-width:760px; }
+  .about-text p{ color:var(--muted); margin:0 0 18px; }
+  .about-text p:last-child{ margin-bottom:0; }
+  .bio-name{ font-size:1.3rem; margin:0 0 4px; }
+  .bio-role{ color:var(--accent); font-weight:600; font-size:0.9rem; margin:0 0 22px !important; }
   .info-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:16px; }
   .info-list li{ display:flex; gap:14px; align-items:flex-start; font-size:0.92rem; }
   .info-list .k{ color:var(--accent); min-width:110px; font-weight:600; }
@@ -552,6 +557,7 @@
 </svg></a>
     <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" id="navLinks">
+      <a href="#atelier-info">Présentation</a>
       <a href="#ateliers">Ateliers</a>
       <a href="#location">Location</a>
       <a href="#impression3d">Impression 3D</a>
@@ -626,6 +632,36 @@
       </svg>
       Sur mesure
     </span>
+  </div>
+</section>
+
+<section id="atelier-info">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Présentation</span>
+      <h2>Un lieu pour fabriquer, réparer, upcycler</h2>
+    </div>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" id="tabBtn-transfo" onclick="switchAboutTab('transfo')">Atelier Transfo</button>
+      <button class="tab-btn" id="tabBtn-bio" onclick="switchAboutTab('bio')">Qui suis-je ?</button>
+    </div>
+
+    <div class="tab-panel about-text reveal" id="about-transfo">
+      <p>AtelierTransfo est un espace de création où électronique, upcycling, impression 3D et théâtre se mélangent. Ici, on répare, on détourne, on redonne vie aux objets plutôt que de les jeter — l'upcycling est au cœur de chaque projet. On rejoint là l'esprit du mouvement <em>maker</em>, ce terme à la mode pour désigner les bidouilleurs-créateurs qui pensent qu'on peut toujours fabriquer, réparer ou réinventer par soi-même.</p>
+      <p>Beaucoup de mes créations naissent d'appareils électroniques obsolètes que je démonte et récupère. Vous avez du matériel hors service qui dort chez vous ? Ne le jetez pas à la déchetterie — venez me le confier. On garde souvent les objets en se disant qu'on en fera quelque chose, un jour. À l'atelier Transfo, j'en tire le potentiel : je leur redonne du cachet, je les tire vers le haut. C'est ça, l'upcycling — leur offrir une seconde vie bien méritée.</p>
+      <p>Outre la bidouille, je suis aussi régisseur de théâtre, spécialisé lumière et plateau. Je tourne avec des spectacles : j'assure le transport, le montage décor et lumière, les réglages et la régie, et je veille au bon déroulement technique pendant toute la durée de l'exploitation. Pour des compagnies de théâtre, je conçois et fabrique aussi des éléments de décor et de la machinerie scénique, souvent électronique. Sur commande ou pendant une création artistique, je réalise les idées folles des metteur·euses en scène — du petit objet interactif sans fil jusqu'à la grosse machine motorisée. Une autre facette faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique à l'atelier Transfo.</p>
+      <p>Atelier Transfo, c'est à l'intérieur du Pink Atelier depuis février 2026. Je partage ce grand local avec 18 autres créateurices à Besançon — venez nous voir et découvrez tout le collectif sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
+    </div>
+
+    <div class="tab-panel about-text" id="about-bio" style="display:none;">
+      <h3 class="bio-name">Clément Barillot</h3>
+      <p class="bio-role">Régisseur de théâtre & concepteur électronicien</p>
+      <p>Après une formation en électrotechnique, Clément travaille plusieurs années comme électricien avant d'orienter son parcours vers le spectacle vivant. Il se forme ensuite aux techniques du théâtre (lumière, son, plateau) à l'école du Grim Édif, à Lyon.</p>
+      <p>Il intègre rapidement la Comédie Odéon à Lyon comme régisseur lumière, puis part en tournée sur plusieurs spectacles — notamment <em>Le Porteur d'histoire</em> et <em>Intra-Muros</em> d'Alexis Michalik — en tant que régisseur technique de tournée.</p>
+      <p>En parallèle, il développe un travail de construction et de recherche plateau, mêlant électronique, détournement d'objets et upcycling, en concevant dans son atelier des dispositifs sur mesure adaptés au spectacle vivant. Cette approche l'amène à collaborer avec plusieurs compagnies de théâtre, dont le Ring-Théâtre, où il intervient comme régisseur général et constructeur plateau, dans un esprit de bidouille et d'expérimentation.</p>
+      <p>Cette façon d'aborder le plateau, comme un espace de fabrication et d'invention, guide désormais ses collaborations. Il poursuit aujourd'hui ce parcours au sein de la compagnie M. pour le spectacle <em>SUPER</em>, en tant que constructeur plateau, régisseur général et régisseur lumière.</p>
+    </div>
   </div>
 </section>
 
@@ -1007,26 +1043,6 @@
   </div>
 </section>
 
-<section id="atelier-info">
-  <div class="wrap">
-    <div class="about-grid reveal">
-      <div>
-        <span class="eyebrow">L'atelier</span>
-        <h2>Un lieu pour fabriquer, réparer, upcycler</h2>
-        <p>AtelierTransfo est un espace de création où électronique, upcycling et impression 3D se croisent. Ici, on répare, on détourne, on redonne vie aux objets plutôt que de les jeter — l'upcycling est au cœur de chaque projet.</p>
-        <p>Beaucoup de mes créations naissent d'appareils électroniques obsolètes que je démonte et récupère. Vous avez du matériel hors service qui dort dans un tiroir ou un garage ? Ne le déposez pas à la déchetterie — venez me le confier, ça vaut de l'or à mes yeux.</p>
-        <p>Je suis aussi régisseur de théâtre, spécialisé lumière et plateau. J'y conçois et fabrique aussi des éléments de décor et de la machinerie scénique — du petit objet interactif sans fil à la grosse machine motorisée. Une autre vie faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique ici.</p>
-        <p>L'atelier Transfo, dans l'atelier Pink : depuis janvier 2026, je partage ce lieu tout neuf avec 19 autres créateurices à Besançon — un collectif à découvrir sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
-      </div>
-      <ul class="info-list">
-        <li><span class="k">Adresse</span> <span>1 rue Général Rolland, 25000 Besançon</span></li>
-        <li><span class="k">Horaires</span> <span>Quand je décide d'aller bricoler, ou sur rendez-vous</span></li>
-        <li><span class="k">Email</span> <span>ateliertransfo@hotmail.com</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <section id="reservation">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1118,6 +1134,13 @@
           </li>
           <li>
             <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" fill="none" stroke="var(--red)" stroke-width="1.6"/>
+              <path d="M12 7v5.5l3.5 2" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Horaires : sur rendez-vous</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" fill="var(--red)"/>
               <circle cx="12" cy="10" r="2.8" fill="var(--bg)"/>
             </svg>
@@ -1205,6 +1228,14 @@
   // si on arrive directement sur un lien #cabsule ou #tel-vintage, on ouvre le bon onglet
   if (['#cabsule', '#tel-vintage'].includes(window.location.hash)){
     switchTab('creations');
+  }
+
+  // onglets de la section Présentation
+  function switchAboutTab(name){
+    document.getElementById('about-transfo').style.display = (name === 'transfo') ? '' : 'none';
+    document.getElementById('about-bio').style.display = (name === 'bio') ? '' : 'none';
+    document.getElementById('tabBtn-transfo').classList.toggle('active', name === 'transfo');
+    document.getElementById('tabBtn-bio').classList.toggle('active', name === 'bio');
   }
 
   // ouverture/fermeture d'un panneau vidéo, en alternant le sens du glissement
