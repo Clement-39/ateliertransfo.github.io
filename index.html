@@ -110,19 +110,21 @@
     .hero-bg-zoom{ animation:none; transform:scale(1.08); }
   }
 
-  /* ---------- Fond vidéo (section Impression 3D) ---------- */
-  #impression3d{ position:relative; overflow:hidden; }
-  .section-bg-wrap{
-    position:absolute; inset:0; z-index:-1; overflow:hidden;
+  /* ---------- Vidéo intégrée dans une carte (Stylo & découpe) ---------- */
+  .video-bg-card{
+    position:relative; overflow:hidden; min-height:280px;
   }
-  .section-bg-video{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  .card-bg-video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
   }
-  .section-bg-overlay{
-    position:absolute; inset:0;
+  .card-bg-overlay{
+    position:absolute; inset:0; z-index:1;
     background:
       linear-gradient(to bottom, rgba(34,73,44,0.90), rgba(34,73,44,0.74) 35%, rgba(34,73,44,0.68) 60%, rgba(34,73,44,0.92)),
       radial-gradient(ellipse at center, rgba(34,73,44,0.35) 0%, rgba(34,73,44,0.78) 78%);
+  }
+  .video-bg-card .card-content{
+    position:relative; z-index:2; display:flex; flex-direction:column; gap:14px; height:100%;
   }
 
   .eyebrow{
@@ -871,12 +873,6 @@
 </section>
 
 <section id="impression3d">
-  <div class="section-bg-wrap" aria-hidden="true">
-    <video class="section-bg-video" autoplay muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg">
-      <source src="images/impression3d-bg.mp4" type="video/mp4">
-    </video>
-    <div class="section-bg-overlay"></div>
-  </div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Impression 3D</span>
@@ -900,12 +896,18 @@
         <p>J'ai du PLA et du PETG dans plusieurs couleurs. Mais si la couleur ne vous importe pas, je privilégie en premier lieu le PET recyclé, que je fabrique moi-même à partir de bouteilles en plastique récupérées.</p>
         <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-pet')">Découvrir</a>
       </div>
-      <div class="service-card">
-        <h3>Stylo & découpe (Bambu Lab A2L)</h3>
-        <p>Une extension stylo et cutter sur mon imprimante permet de dessiner sur différents supports, puis de découper — par exemple sur une feuille autocollante, pour créer vos propres stickers sur mesure.</p>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a href="#video-draw" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-draw')">Voir le dessin</a>
-          <a href="#video-cut" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-cut')">Voir la découpe</a>
+      <div class="service-card video-bg-card">
+        <video class="card-bg-video" autoplay muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg" aria-hidden="true">
+          <source src="images/impression3d-bg.mp4" type="video/mp4">
+        </video>
+        <div class="card-bg-overlay"></div>
+        <div class="card-content">
+          <h3>Stylo & découpe (Bambu Lab A2L)</h3>
+          <p>Une extension stylo et cutter sur mon imprimante permet de dessiner sur différents supports, puis de découper — par exemple sur une feuille autocollante, pour créer vos propres stickers sur mesure.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="#video-draw" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-draw')">Voir le dessin</a>
+            <a href="#video-cut" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-cut')">Voir la découpe</a>
+          </div>
         </div>
       </div>
     </div>
