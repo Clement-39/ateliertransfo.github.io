@@ -110,6 +110,21 @@
     .hero-bg-zoom{ animation:none; transform:scale(1.08); }
   }
 
+  /* ---------- Fond vidéo (section Impression 3D) ---------- */
+  #impression3d{ position:relative; overflow:hidden; }
+  .section-bg-wrap{
+    position:absolute; inset:0; z-index:-1; overflow:hidden;
+  }
+  .section-bg-video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .section-bg-overlay{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to bottom, rgba(34,73,44,0.90), rgba(34,73,44,0.74) 35%, rgba(34,73,44,0.68) 60%, rgba(34,73,44,0.92)),
+      radial-gradient(ellipse at center, rgba(34,73,44,0.35) 0%, rgba(34,73,44,0.78) 78%);
+  }
+
   .eyebrow{
     display:inline-block; color:var(--accent); font-size:0.8rem; letter-spacing:0.14em;
     text-transform:uppercase; font-weight:600; margin-bottom:18px;
@@ -125,37 +140,16 @@
   }
   .wip-icon{ display:block; }
 
-  .hero-headline-row{
-    display:flex; align-items:center; justify-content:center;
-    gap:18px; flex-wrap:wrap; margin-bottom:10px;
-  }
   .eyebrow-hero{
-    font-size:2rem; line-height:1.2; letter-spacing:0.02em;
+    display:block; line-height:1.15; letter-spacing:0.02em;
     text-transform:none; font-family:'Bricolage Grotesque', sans-serif;
-    font-weight:800; text-align:right; max-width:340px;
+    font-weight:800; text-align:center; margin:0 auto 22px;
   }
-  @media (max-width:900px){
-    .eyebrow-hero{ text-align:center; max-width:100%; font-size:1.5rem; }
-  }
-  .pink-burst{
-    position:relative; display:inline-flex; align-items:center; justify-content:center;
-    width:600px; height:320px; flex-shrink:0; text-decoration:none;
-    animation:burst-pulse 3.2s ease-in-out infinite;
-  }
-  .pink-burst-shape{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
-  .pink-burst-text{
-    position:relative; z-index:1; color:var(--bg); font-weight:800;
-    text-align:center; font-size:0.7rem; line-height:1.3; padding:0 198px;
-  }
-  .pink-burst:hover{ animation-play-state:paused; transform:scale(1.05); }
-  @keyframes burst-pulse{
-    0%, 100%{ transform:scale(1); }
-    50%{ transform:scale(1.035); }
+  .eyebrow-hero-big{
+    font-size:3rem; max-width:720px;
   }
   @media (max-width:700px){
-    .hero-headline-row{ margin-bottom:4px; }
-    .pink-burst{ width:380px; height:230px; }
-    .pink-burst-text{ font-size:0.54rem; padding:0 128px; }
+    .eyebrow-hero-big{ font-size:1.9rem; }
   }
   .pink-inline-link{ color:#E58AB5; text-decoration:underline; }
   .pink-inline-link:hover{ color:#F3AECF; }
@@ -589,17 +583,7 @@
     <span class="wip-text">Site en cours de création</span>
   </div>
   <div class="wip-bar"><div class="wip-bar-fill"></div></div>
-  <div class="hero-headline-row">
-    <span class="eyebrow eyebrow-hero" style="margin-bottom:0;">Atelier de création & transformation<br>à Besançon</span>
-    <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-burst" aria-label="Atelier Transfo, dans l'atelier Pink à Besançon avec 19 créateurices — découvrir sur Instagram">
-      <svg class="pink-burst-shape" viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true">
-        <polygon points="171.3,25.7 185.4,77.3 238.3,50.0 220.0,104.6 275.2,112.1 232.0,147.6 249.0,175.9 214.6,187.2 240.5,249.5 184.0,216.1 171.0,278.9 142.6,215.6 103.7,252.9 106.1,200.3 51.9,211.0 81.0,167.6 53.4,146.3 85.4,126.6 61.2,87.0 101.7,87.0 100.7,30.2 143.5,77.7" fill="var(--bg)" transform="translate(6,8)"/>
-        <polygon points="167.4,24.9 180.7,74.1 230.9,47.9 213.3,99.9 266.0,106.9 224.7,140.5 241.1,167.5 208.3,178.1 233.1,237.3 179.3,205.4 167.1,265.2 140.2,204.9 103.2,240.5 105.7,190.4 54.0,200.7 81.9,159.5 55.5,139.3 86.0,120.7 62.8,83.1 101.5,83.2 100.3,29.1 141.1,74.4" fill="#FFFFFF"/>
-        <polygon points="165.2,39.3 176.3,83.5 220.8,59.4 204.3,105.7 251.5,111.0 214.1,140.5 229.7,164.0 200.0,172.6 222.7,225.1 175.1,196.1 164.9,249.6 141.6,195.7 109.1,228.0 112.0,183.2 66.0,193.1 91.6,156.7 67.3,139.4 95.2,123.5 73.7,90.2 108.4,91.3 106.5,43.0 142.3,83.8" fill="var(--accent)"/>
-      </svg>
-      <span class="pink-burst-text">Atelier Transfo c'est dans l'atelier Pink, un nouveau lieu tout juste ouvert à Besançon, avec 19 créateurices. Venez découvrir !</span>
-    </a>
-  </div>
+  <span class="eyebrow eyebrow-hero eyebrow-hero-big">Atelier de création & transformation<br>à Besançon</span>
 
   <h1>Je récupère, je répare, je redonne vie aux objets qu'on allait jeter.</h1>
   <p>Électronique, upcycling et impression 3D : ateliers, location de matériel et pièces sur mesure, sur rendez-vous à Besançon.</p>
@@ -656,8 +640,8 @@
     <div class="tab-panel about-text reveal" id="about-transfo">
       <p>AtelierTransfo est un espace de création où électronique, upcycling, impression 3D et théâtre se mélangent. Ici, on répare, on détourne, on redonne vie aux objets plutôt que de les jeter — l'upcycling est au cœur de chaque projet. On rejoint là l'esprit du mouvement <em>maker</em>, ce terme à la mode pour désigner les bidouilleurs-créateurs qui pensent qu'on peut toujours fabriquer, réparer ou réinventer par soi-même.</p>
       <p>Beaucoup de mes créations naissent d'appareils électroniques obsolètes que je démonte et récupère. Vous avez du matériel hors service qui dort chez vous ? Ne le jetez pas à la déchetterie — venez me le confier. On garde souvent les objets en se disant qu'on en fera quelque chose, un jour. À l'atelier Transfo, j'en tire le potentiel : je leur redonne du cachet, je les tire vers le haut. C'est ça, l'upcycling — leur offrir une seconde vie bien méritée.</p>
-      <p>Outre la bidouille, je suis aussi régisseur de théâtre, spécialisé lumière et plateau. Je tourne avec des spectacles : j'assure le transport, le montage décor et lumière, les réglages et la régie, et je veille au bon déroulement technique pendant toute la durée de l'exploitation. Pour des compagnies de théâtre, je conçois et fabrique aussi des éléments de décor et de la machinerie scénique, souvent électronique. Sur commande ou pendant une création artistique, je réalise les idées folles des metteur·euses en scène — du petit objet interactif sans fil jusqu'à la grosse machine motorisée. Une autre facette faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique à l'atelier Transfo.</p>
-      <p>Atelier Transfo, c'est à l'intérieur du Pink Atelier depuis février 2026. Je partage ce grand local avec 18 autres créateurices à Besançon — venez nous voir et découvrez tout le collectif sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
+      <p>Outre la bidouille, je suis aussi régisseur de théâtre, spécialisé lumière et plateau. Pour les tournées de spectacle, j'assure le transport, le montage, les réglages et la régie. Et pour les compagnies de théâtre, je conçois et fabrique des éléments de décor, de la machinerie scénique, très souvent d'ordre électronique. Sur commande ou pendant une création artistique, je réalise les idées folles des metteur·euses en scène — du petit objet interactif sans fil, à la grosse machine motorisée sur batterie. Une autre facette faite de technique et d'improvisation, qui nourrit forcément ce que je fabrique à l'atelier Transfo.</p>
+      <p><a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener" class="pink-inline-link">@ateliertransfo</a>, c'est à l'intérieur du Pink Atelier depuis février 2026. Je partage ce grand local avec 18 autres créateurices au <a href="https://www.google.com/maps/search/?api=1&query=1+rue+G%C3%A9n%C3%A9ral+Rolland+Besan%C3%A7on" target="_blank" rel="noopener" class="pink-inline-link">1 rue Général Rolland</a> à Besançon — venez nous voir et découvrez tout le collectif sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
     </div>
 
     <div class="tab-panel about-text" id="about-bio" style="display:none;">
@@ -887,6 +871,12 @@
 </section>
 
 <section id="impression3d">
+  <div class="section-bg-wrap" aria-hidden="true">
+    <video class="section-bg-video" autoplay muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg">
+      <source src="images/impression3d-bg.mp4" type="video/mp4">
+    </video>
+    <div class="section-bg-overlay"></div>
+  </div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Impression 3D</span>
@@ -1150,7 +1140,7 @@
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" fill="var(--red)"/>
               <circle cx="12" cy="10" r="2.8" fill="var(--bg)"/>
             </svg>
-            <span>1 rue Général Rolland, 25000 Besançon</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=1+rue+G%C3%A9n%C3%A9ral+Rolland+Besan%C3%A7on" target="_blank" rel="noopener">1 rue Général Rolland, 25000 Besançon</a>
           </li>
           <li>
             <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
