@@ -82,6 +82,7 @@
     overflow:hidden;
   }
   .hero{ position:relative; }
+  #location{ position:relative; overflow:hidden; }
 
   .hero-bg-wrap{
     position:absolute; inset:0; z-index:-1; overflow:hidden;
@@ -385,9 +386,10 @@
 
   /* ---------- Detail blocks (Cab'sule, téléphone vintage...) ---------- */
   .detail-block{
-    margin-top:56px; padding-top:48px; border-top:1px dashed var(--line);
+    position:relative; margin-top:56px; padding-top:48px; border-top:1px dashed var(--line);
   }
-  .detail-title{ font-size:1.4rem; margin:0 0 24px; }
+  .detail-close{ position:absolute; top:48px; right:0; }
+  .detail-title{ font-size:1.4rem; margin:0 0 24px; padding-right:40px; }
   .detail-block h4{
     font-size:0.95rem; text-transform:uppercase; letter-spacing:0.06em;
     color:var(--accent); margin:32px 0 14px;
@@ -686,6 +688,14 @@
 </section>
 
 <section id="location">
+  <div class="hero-bg-wrap" aria-hidden="true">
+    <div class="hero-bg-zoom">
+      <div class="hero-bg-parallax" id="locationParallax">
+        <img src="images/location-bg.jpg" class="hero-bg-img" alt="">
+      </div>
+    </div>
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Location</span>
@@ -797,17 +807,18 @@
         <div class="service-card photo-card" style="background-image:linear-gradient(to top, rgba(30,53,39,0.94), rgba(30,53,39,0.25) 65%), url('images/cabsule-preview.jpg'); background-position:center top;">
           <h3>La Cab'sule</h3>
           <p>Cabine téléphonique juke-box rétro, un voyage dans le temps musical pour vos événements.</p>
-          <a href="#cabsule" class="btn btn-ghost" onclick="switchTab('creations')">Découvrir la Cab'sule</a>
+          <a href="#cabsule" class="btn btn-ghost" onclick="toggleDetailBlock(event, 'cabsule')">Découvrir la Cab'sule</a>
         </div>
         <div class="service-card photo-card" style="background-image:linear-gradient(to top, rgba(30,53,39,0.94), rgba(30,53,39,0.25) 65%), url('images/tel-vintage-bg.jpg');">
           <h3>Téléphone vintage — livre d'or</h3>
           <p>Un téléphone d'époque qui enregistre les messages de vos invités, pour mariages et anniversaires.</p>
-          <a href="#tel-vintage" class="btn btn-ghost" onclick="switchTab('creations')">Découvrir cette option</a>
+          <a href="#tel-vintage" class="btn btn-ghost" onclick="toggleDetailBlock(event, 'tel-vintage')">Découvrir cette option</a>
         </div>
       </div>
 
       <!-- ===== La Cab'sule ===== -->
-      <div class="detail-block reveal" id="cabsule">
+      <div class="detail-block" id="cabsule" style="display:none;">
+        <button class="video-close detail-close" onclick="toggleDetailBlock(event, 'cabsule')" aria-label="Fermer">✕</button>
         <h3 class="detail-title">La Cab'sule — cabine téléphonique juke-box</h3>
 
         <div class="detail-gallery">
@@ -861,7 +872,8 @@
       </div>
 
       <!-- ===== Téléphone vintage livre d'or ===== -->
-      <div class="detail-block reveal" id="tel-vintage">
+      <div class="detail-block" id="tel-vintage" style="display:none;">
+        <button class="video-close detail-close" onclick="toggleDetailBlock(event, 'tel-vintage')" aria-label="Fermer">✕</button>
         <h3 class="detail-title">Téléphone vintage — livre d'or</h3>
         <div class="piece-media" style="height:200px; max-width:420px;">Photo à venir</div>
         <p style="margin-top:18px;">Idéal pour les mariages, anniversaires ou autres événements : vos invités décrochent un téléphone d'époque et laissent un message personnalisé, qui est enregistré sur une carte SD, afin de tout récupérer en souvenir.</p>
@@ -1197,24 +1209,45 @@
     burger.setAttribute('aria-expanded', 'false');
   }));
 
-  // effet parallax de la photo de fond au mouvement de la souris
+  // effet parallax des photos de fond au mouvement de la souris
   (function(){
-    const hero = document.getElementById('accueil');
-    const parallax = document.getElementById('heroParallax');
-    if (!hero || !parallax) return;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
     const maxShift = 26; // décalage maximum en pixels
-    hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      parallax.style.transform = `translate(${(-x * maxShift * 2).toFixed(1)}px, ${(-y * maxShift * 2).toFixed(1)}px)`;
-    });
-    hero.addEventListener('mouseleave', () => {
-      parallax.style.transform = 'translate(0,0)';
+    const pairs = [
+      ['accueil', 'heroParallax'],
+      ['location', 'locationParallax'],
+    ];
+    pairs.forEach(([sectionId, parallaxId]) => {
+      const section = document.getElementById(sectionId);
+      const parallax = document.getElementById(parallaxId);
+      if (!section || !parallax) return;
+      section.addEventListener('mousemove', (e) => {
+        const rect = section.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        parallax.style.transform = `translate(${(-x * maxShift * 2).toFixed(1)}px, ${(-y * maxShift * 2).toFixed(1)}px)`;
+      });
+      section.addEventListener('mouseleave', () => {
+        parallax.style.transform = 'translate(0,0)';
+      });
     });
   })();
+
+  // affichage/masquage des blocs détaillés (Cab'sule, téléphone vintage) au clic sur "Découvrir"
+  function toggleDetailBlock(e, blockId){
+    e.preventDefault();
+    const block = document.getElementById(blockId);
+    const isOpen = block.style.display !== 'none';
+    // referme l'autre bloc s'il était ouvert, pour n'en montrer qu'un à la fois
+    ['cabsule', 'tel-vintage'].forEach(id => {
+      if (id !== blockId) document.getElementById(id).style.display = 'none';
+    });
+    block.style.display = isOpen ? 'none' : '';
+    if (!isOpen){
+      block.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }
 
   // onglets de la section Location
   function switchTab(name){
@@ -1223,9 +1256,11 @@
     document.getElementById('tabBtn-materiel').classList.toggle('active', name === 'materiel');
     document.getElementById('tabBtn-creations').classList.toggle('active', name === 'creations');
   }
-  // si on arrive directement sur un lien #cabsule ou #tel-vintage, on ouvre le bon onglet
+  // si on arrive directement sur un lien #cabsule ou #tel-vintage, on ouvre le bon onglet et le bloc
   if (['#cabsule', '#tel-vintage'].includes(window.location.hash)){
     switchTab('creations');
+    const targetId = window.location.hash.slice(1);
+    document.getElementById(targetId).style.display = '';
   }
 
   // onglets de la section Présentation
