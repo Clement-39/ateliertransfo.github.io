@@ -83,6 +83,7 @@
   }
   .hero{ position:relative; }
   #location{ position:relative; overflow:hidden; }
+  #contact{ position:relative; overflow:hidden; }
 
   .hero-bg-wrap{
     position:absolute; inset:0; z-index:-1; overflow:hidden;
@@ -801,7 +802,6 @@
     </div>
 
     <div class="tab-panel" id="tab-creations">
-      <p class="tab-intro">En plus du matériel d'atelier, certaines de mes créations se louent pour des événements, mariages ou animations.</p>
 
       <div class="service-grid reveal">
         <div class="service-card photo-card" style="background-image:linear-gradient(to top, rgba(30,53,39,0.94), rgba(30,53,39,0.25) 65%), url('images/cabsule-preview.jpg'); background-position:center top;">
@@ -1116,6 +1116,14 @@
 </section>
 
 <section id="contact">
+  <div class="hero-bg-wrap" aria-hidden="true">
+    <div class="hero-bg-zoom">
+      <div class="hero-bg-parallax" id="contactParallax">
+        <img src="images/contact-bg.jpg" class="hero-bg-img" alt="">
+      </div>
+    </div>
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="wrap">
     <div class="contact-grid reveal">
       <div>
@@ -1217,6 +1225,7 @@
     const pairs = [
       ['accueil', 'heroParallax'],
       ['location', 'locationParallax'],
+      ['contact', 'contactParallax'],
     ];
     pairs.forEach(([sectionId, parallaxId]) => {
       const section = document.getElementById(sectionId);
