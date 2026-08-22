@@ -12,16 +12,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #22492C;
-    --surface: #265731;
-    --surface-2: #2E6339;
+    --bg: #24582F;
+    --surface: #266233;
+    --surface-2: #2C6A38;
     --accent: #FFE000;
     --accent-dim: #C9AE00;
     --rust: #2F8A44;
     --red: #E4483A;
     --text: #EDEAE0;
-    --muted: #AFC9B4;
-    --line: #396A46;
+    --muted: #B4CDB8;
+    --line: #356E42;
     --radius: 6px;
   }
 
@@ -105,8 +105,8 @@
   .hero-bg-overlay{
     position:absolute; inset:0;
     background:
-      linear-gradient(to bottom, rgba(34,73,44,0.90), rgba(34,73,44,0.74) 35%, rgba(34,73,44,0.68) 60%, rgba(34,73,44,0.92)),
-      radial-gradient(ellipse at center, rgba(34,73,44,0.35) 0%, rgba(34,73,44,0.78) 78%);
+      linear-gradient(to bottom, rgba(36,88,47,0.90), rgba(36,88,47,0.74) 35%, rgba(36,88,47,0.68) 60%, rgba(36,88,47,0.92)),
+      radial-gradient(ellipse at center, rgba(36,88,47,0.35) 0%, rgba(36,88,47,0.78) 78%);
   }
   @media (prefers-reduced-motion: reduce){
     .hero-bg-zoom{ animation:none; transform:scale(1.08); }
@@ -122,12 +122,17 @@
   .card-bg-overlay{
     position:absolute; inset:0; z-index:1;
     background:
-      linear-gradient(to bottom, rgba(34,73,44,0.90), rgba(34,73,44,0.74) 35%, rgba(34,73,44,0.68) 60%, rgba(34,73,44,0.92)),
-      radial-gradient(ellipse at center, rgba(34,73,44,0.35) 0%, rgba(34,73,44,0.78) 78%);
+      linear-gradient(to bottom, rgba(36,88,47,0.90), rgba(36,88,47,0.74) 35%, rgba(36,88,47,0.68) 60%, rgba(36,88,47,0.92)),
+      radial-gradient(ellipse at center, rgba(36,88,47,0.35) 0%, rgba(36,88,47,0.78) 78%);
   }
   .video-bg-card .card-content{
     position:relative; z-index:2; display:flex; flex-direction:column; gap:14px; height:100%;
   }
+  .about-bio-panel{
+    position:relative; overflow:hidden; border-radius:var(--radius);
+    padding:36px; border:1px solid var(--line);
+  }
+  .about-bio-content{ position:relative; z-index:2; max-width:none; }
 
   .eyebrow{
     display:inline-block; color:var(--accent); font-size:0.8rem; letter-spacing:0.14em;
@@ -649,13 +654,19 @@
       <p><a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener" class="pink-inline-link">@ateliertransfo</a>, c'est à l'intérieur du Pink Atelier depuis février 2026. Je partage ce grand local avec 18 autres créateurices au <a href="https://www.google.com/maps/search/?api=1&query=1+rue+G%C3%A9n%C3%A9ral+Rolland+Besan%C3%A7on" target="_blank" rel="noopener" class="pink-inline-link">1 rue Général Rolland</a> à Besançon — venez nous voir et découvrez tout le collectif sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
     </div>
 
-    <div class="tab-panel about-text" id="about-bio" style="display:none;">
-      <h3 class="bio-name">Clément Barillot</h3>
-      <p class="bio-role">Régisseur de théâtre & concepteur électronicien</p>
-      <p>Après une formation en électrotechnique, Clément travaille plusieurs années comme électricien avant d'orienter son parcours vers le spectacle vivant. Il se forme ensuite aux techniques du théâtre (lumière, son, plateau) à l'école du Grim Édif, à Lyon.</p>
-      <p>Il intègre rapidement la Comédie Odéon à Lyon comme régisseur lumière, puis part en tournée sur plusieurs spectacles — notamment <em>Le Porteur d'histoire</em> et <em>Intra-Muros</em> d'Alexis Michalik — en tant que régisseur technique de tournée.</p>
-      <p>En parallèle, il développe un travail de construction et de recherche plateau, mêlant électronique, détournement d'objets et upcycling, en concevant dans son atelier des dispositifs sur mesure adaptés au spectacle vivant. Cette approche l'amène à collaborer avec plusieurs compagnies de théâtre, dont le Ring-Théâtre, où il intervient comme régisseur général et constructeur plateau, dans un esprit de bidouille et d'expérimentation.</p>
-      <p>Cette façon d'aborder le plateau, comme un espace de fabrication et d'invention, guide désormais ses collaborations. Il poursuit aujourd'hui ce parcours au sein de la compagnie M. pour le spectacle <em>SUPER</em>, en tant que constructeur plateau, régisseur général et régisseur lumière.</p>
+    <div class="tab-panel about-bio-panel" id="about-bio" style="display:none;">
+      <video class="card-bg-video" id="bioVideo" muted loop playsinline preload="none" poster="images/bio-bg-poster.jpg" aria-hidden="true">
+        <source src="images/bio-bg.mp4" type="video/mp4">
+      </video>
+      <div class="card-bg-overlay"></div>
+      <div class="about-text about-bio-content">
+        <h3 class="bio-name">Clément Barillot</h3>
+        <p class="bio-role">Régisseur de théâtre & concepteur électronicien</p>
+        <p>Après une formation en électrotechnique, Clément travaille plusieurs années comme électricien avant d'orienter son parcours vers le spectacle vivant. Il se forme ensuite aux techniques du théâtre (lumière, son, plateau) à l'école du Grim Édif, à Lyon.</p>
+        <p>Il intègre rapidement la Comédie Odéon à Lyon comme régisseur lumière, puis part en tournée sur plusieurs spectacles — notamment <em>Le Porteur d'histoire</em> et <em>Intra-Muros</em> d'Alexis Michalik — en tant que régisseur technique de tournée.</p>
+        <p>En parallèle, il développe un travail de construction et de recherche plateau, mêlant électronique, détournement d'objets et upcycling, en concevant dans son atelier des dispositifs sur mesure adaptés au spectacle vivant. Cette approche l'amène à collaborer avec plusieurs compagnies de théâtre, dont le Ring-Théâtre, où il intervient comme régisseur général et constructeur plateau, dans un esprit de bidouille et d'expérimentation.</p>
+        <p>Cette façon d'aborder le plateau, comme un espace de fabrication et d'invention, guide désormais ses collaborations. Il poursuit aujourd'hui ce parcours au sein de la compagnie M. pour le spectacle <em>SUPER</em>, en tant que constructeur plateau, régisseur général et régisseur lumière.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1278,6 +1289,14 @@
     document.getElementById('about-bio').style.display = (name === 'bio') ? '' : 'none';
     document.getElementById('tabBtn-transfo').classList.toggle('active', name === 'transfo');
     document.getElementById('tabBtn-bio').classList.toggle('active', name === 'bio');
+    const bioVideo = document.getElementById('bioVideo');
+    if (bioVideo){
+      if (name === 'bio'){
+        bioVideo.play().catch(() => {});
+      } else {
+        bioVideo.pause();
+      }
+    }
   }
 
   // ouverture/fermeture d'un panneau vidéo, en alternant le sens du glissement
