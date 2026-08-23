@@ -750,10 +750,39 @@
           <a href="#reservation" class="btn btn-primary" onclick="preselect('Atelier électronique — découverte')">Réserver cette session</a>
         </div>
       </div>
-      <div class="service-card">
+      <div class="service-card atelier-card" id="card-personnalise">
         <h3>Projet personnalisé</h3>
         <p>Vous avez une idée ou un objet à réparer ? On construit la séance autour de votre projet.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet personnalisé')">Réserver cette session</a>
+        <div class="atelier-card-actions">
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet personnalisé')">Réserver cette session</a>
+          <button type="button" class="btn btn-ghost atelier-more-btn" id="btn-personnalise" onclick="toggleAtelierDetail(event, 'card-personnalise', 'atelier-detail-personnalise', 'btn-personnalise')">En savoir plus</button>
+        </div>
+
+        <div class="atelier-detail" id="atelier-detail-personnalise">
+          <h4>Session personnalisée — 50€ / 1h</h4>
+          <p>Vous avez une idée de projet, ou bien un objet à réparer ? Construisons la session autour de votre projet.</p>
+          <p>Avant la séance, votre projet ou votre objet doit être présenté et validé en amont, afin que je puisse l'étudier, vérifier sa faisabilité et préparer le matériel nécessaire. Certains projets nécessiteront plusieurs séances : on ne répare pas une télévision en 1h !</p>
+
+          <h4>Quelques exemples</h4>
+          <ul class="atelier-example-list">
+            <li>Un chargeur à réparer</li>
+            <li>Une batterie externe à réparer</li>
+            <li>Une enceinte bluetooth à remettre en état, ou à recycler</li>
+          </ul>
+
+          <p>Vous avez laissé de côté depuis trop longtemps un objet que vous vouliez réparer un jour ? C'est le moment, en apprenant l'électronique. On réfléchit, on bidouille, et on répare ensemble.</p>
+
+          <h4>Tarifs dégressifs</h4>
+          <ul class="info-list">
+            <li><span class="k">1h</span><span>50€</span></li>
+            <li><span class="k">2h</span><span>90€ — diagnostic approfondi et réparation</span></li>
+            <li><span class="k">3h</span><span>125€ — poursuite et amélioration</span></li>
+            <li><span class="k">4h</span><span>160€ — s'il y a lieu : personnalisation de l'objet</span></li>
+          </ul>
+          <p class="form-note">Matériel, composants et accompagnement compris.</p>
+
+          <a href="#reservation" class="btn btn-primary" onclick="preselect('Atelier électronique — projet personnalisé')">Réserver cette session</a>
+        </div>
       </div>
       <div class="service-card">
         <h3>Projet upcycling</h3>
@@ -761,7 +790,6 @@
         <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet upcycling')">Réserver cette session</a>
       </div>
     </div>
-    <p class="form-note" style="margin-top:20px;">Tarif indicatif : 55€/heure par session — les détails seront affinés prochainement.</p>
   </div>
 </section>
 
