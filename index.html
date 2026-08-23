@@ -272,6 +272,32 @@
   .service-card.photo-card h3{ color:#fff; }
   .service-card.photo-card p{ color:rgba(255,255,255,0.85); }
 
+  /* ---------- Carte extensible (Session découverte) ---------- */
+  .atelier-card-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; }
+  .atelier-card{ transition:grid-column 0.1s; }
+  .atelier-card.expanded{ grid-column:1 / -1; }
+  .atelier-detail{
+    max-height:0; opacity:0; overflow:hidden; margin-top:0;
+    transition:max-height 0.6s ease, opacity 0.45s ease, margin-top 0.45s ease, padding-top 0.45s ease;
+  }
+  .atelier-card.expanded .atelier-detail{
+    max-height:1600px; opacity:1; margin-top:24px; padding-top:24px;
+    border-top:1px dashed var(--line);
+  }
+  .atelier-detail h4{
+    font-size:0.95rem; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--accent); margin:22px 0 12px;
+  }
+  .atelier-detail h4:first-child{ margin-top:0; }
+  .atelier-detail p{ color:var(--muted); margin:0 0 12px; }
+  .atelier-example-list{
+    list-style:none; padding:0; margin:0 0 12px; color:var(--muted);
+    font-size:0.92rem; display:flex; flex-direction:column; gap:6px;
+  }
+  .atelier-example-list li::before{ content:"· "; color:var(--accent); font-weight:700; }
+  .atelier-detail .info-list{ margin-bottom:14px; }
+  .atelier-detail .btn{ margin-top:6px; }
+
   .how-it-works{ display:flex; gap:24px; flex-wrap:wrap; margin-top:8px; }
   .how-step{ flex:1; min-width:160px; }
   .how-step .n{ color:var(--accent); font-weight:700; font-family:'Bricolage Grotesque', sans-serif; font-size:0.95rem; }
@@ -689,10 +715,40 @@
       <p>Initiation ou perfectionnement : soudure, montage de circuits, réparation, petits projets Arduino... Chaque session est adaptée à votre niveau. Dans mes 20m² d'atelier, on réfléchit ensemble, on adapte, et on mélange électronique, impression 3D et recyclage d'objets.</p>
     </div>
     <div class="service-grid reveal">
-      <div class="service-card">
+      <div class="service-card atelier-card" id="card-decouverte">
         <h3>Session découverte</h3>
         <p>Une première approche de l'électronique : lecture de schéma, soudure, montage d'un petit circuit à emporter.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — découverte')">Réserver cette session</a>
+        <div class="atelier-card-actions">
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — découverte')">Réserver cette session</a>
+          <button type="button" class="btn btn-ghost atelier-more-btn" id="btn-decouverte" onclick="toggleAtelierDetail(event, 'card-decouverte', 'atelier-detail-decouverte', 'btn-decouverte')">En savoir plus</button>
+        </div>
+
+        <div class="atelier-detail" id="atelier-detail-decouverte">
+          <h4>Découverte de l'électronique — 50€ / 1h</h4>
+          <p>Comprendre les bases, apprendre à lire un schéma, découvrir les composants, s'initier à la soudure, assembler son premier circuit et le tester.</p>
+          <p>Une première approche 100% pratique, accessible aux débutants comme aux personnes ayant déjà quelques notions. Choisissez votre projet parmi une dizaine de petits montages proposés, puis réalisez-le vous-même et repartez avec votre création.</p>
+
+          <h4>Quelques exemples de projets</h4>
+          <ul class="atelier-example-list">
+            <li>Une LED commandée par un interrupteur</li>
+            <li>Une LED à intensité variable avec un potentiomètre</li>
+            <li>Un petit feu clignotant à LED</li>
+            <li>Une lampe à détecteur de lumière</li>
+            <li>Un mini buzzer</li>
+            <li>etc.</li>
+          </ul>
+
+          <h4>Envie de poursuivre le projet ? Tarifs dégressifs</h4>
+          <ul class="info-list">
+            <li><span class="k">1h</span><span>50€</span></li>
+            <li><span class="k">2h</span><span>90€ — amélioration et personnalisation du montage</span></li>
+            <li><span class="k">3h</span><span>125€ — conception et impression 3D d'un boîtier</span></li>
+            <li><span class="k">4h</span><span>160€ — nouveau projet plus poussé, par exemple un petit système automatisé avec capteur, ou une création à base d'Arduino</span></li>
+          </ul>
+          <p class="form-note">Matériel, composants et accompagnement compris.</p>
+
+          <a href="#reservation" class="btn btn-primary" onclick="preselect('Atelier électronique — découverte')">Réserver cette session</a>
+        </div>
       </div>
       <div class="service-card">
         <h3>Projet personnalisé</h3>
@@ -1265,6 +1321,19 @@
   })();
 
   // affichage/masquage des blocs détaillés (Cab'sule, téléphone vintage) au clic sur "Découvrir"
+  // dépliage des infos détaillées d'une session atelier (ex: Session découverte)
+  function toggleAtelierDetail(e, cardId, detailId, btnId){
+    e.preventDefault();
+    const card = document.getElementById(cardId);
+    const btn = document.getElementById(btnId);
+    const isOpen = card.classList.contains('expanded');
+    card.classList.toggle('expanded', !isOpen);
+    btn.textContent = isOpen ? 'En savoir plus' : 'Voir moins';
+    if (!isOpen){
+      card.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }
+
   function toggleDetailBlock(e, blockId){
     e.preventDefault();
     const block = document.getElementById(blockId);
