@@ -84,6 +84,8 @@
   .hero{ position:relative; }
   #location{ position:relative; overflow:hidden; }
   #contact{ position:relative; overflow:hidden; }
+  #atelier-info{ position:relative; overflow:hidden; }
+  #bioBgWrap{ transition:opacity 0.6s ease; }
 
   .hero-bg-wrap{
     position:absolute; inset:0; z-index:-1; overflow:hidden;
@@ -105,8 +107,8 @@
   .hero-bg-overlay{
     position:absolute; inset:0;
     background:
-      linear-gradient(to bottom, rgba(36,88,47,0.90), rgba(36,88,47,0.74) 35%, rgba(36,88,47,0.68) 60%, rgba(36,88,47,0.92)),
-      radial-gradient(ellipse at center, rgba(36,88,47,0.35) 0%, rgba(36,88,47,0.78) 78%);
+      linear-gradient(to bottom, rgba(36,88,47,0.74), rgba(36,88,47,0.56) 35%, rgba(36,88,47,0.50) 60%, rgba(36,88,47,0.78)),
+      radial-gradient(ellipse at center, rgba(36,88,47,0.22) 0%, rgba(36,88,47,0.60) 78%);
   }
   @media (prefers-reduced-motion: reduce){
     .hero-bg-zoom{ animation:none; transform:scale(1.08); }
@@ -122,17 +124,13 @@
   .card-bg-overlay{
     position:absolute; inset:0; z-index:1;
     background:
-      linear-gradient(to bottom, rgba(36,88,47,0.90), rgba(36,88,47,0.74) 35%, rgba(36,88,47,0.68) 60%, rgba(36,88,47,0.92)),
-      radial-gradient(ellipse at center, rgba(36,88,47,0.35) 0%, rgba(36,88,47,0.78) 78%);
+      linear-gradient(to bottom, rgba(36,88,47,0.74), rgba(36,88,47,0.56) 35%, rgba(36,88,47,0.50) 60%, rgba(36,88,47,0.78)),
+      radial-gradient(ellipse at center, rgba(36,88,47,0.22) 0%, rgba(36,88,47,0.60) 78%);
   }
   .video-bg-card .card-content{
     position:relative; z-index:2; display:flex; flex-direction:column; gap:14px; height:100%;
   }
-  .about-bio-panel{
-    position:relative; overflow:hidden; border-radius:var(--radius);
-    padding:36px; border:1px solid var(--line);
-  }
-  .about-bio-content{ position:relative; z-index:2; max-width:none; }
+  .about-bio-content{ position:relative; z-index:2; max-width:760px; }
 
   .eyebrow{
     display:inline-block; color:var(--accent); font-size:0.8rem; letter-spacing:0.14em;
@@ -636,6 +634,14 @@
 </section>
 
 <section id="atelier-info">
+  <div class="hero-bg-wrap" id="bioBgWrap" style="opacity:0;">
+    <div class="hero-bg-zoom">
+      <video class="hero-bg-img" id="bioVideo" muted loop playsinline preload="none" poster="images/bio-bg-poster.jpg" aria-hidden="true">
+        <source src="images/bio-bg.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Présentation</span>
@@ -654,12 +660,8 @@
       <p><a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener" class="pink-inline-link">@ateliertransfo</a>, c'est à l'intérieur du Pink Atelier depuis février 2026. Je partage ce grand local avec 18 autres créateurices au <a href="https://www.google.com/maps/search/?api=1&query=1+rue+G%C3%A9n%C3%A9ral+Rolland+Besan%C3%A7on" target="_blank" rel="noopener" class="pink-inline-link">1 rue Général Rolland</a> à Besançon — venez nous voir et découvrez tout le collectif sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
     </div>
 
-    <div class="tab-panel about-bio-panel" id="about-bio" style="display:none;">
-      <video class="card-bg-video" id="bioVideo" muted loop playsinline preload="none" poster="images/bio-bg-poster.jpg" aria-hidden="true">
-        <source src="images/bio-bg.mp4" type="video/mp4">
-      </video>
-      <div class="card-bg-overlay"></div>
-      <div class="about-text about-bio-content">
+    <div class="tab-panel about-text" id="about-bio" style="display:none;">
+      <div class="about-bio-content">
         <h3 class="bio-name">Clément Barillot</h3>
         <p class="bio-role">Régisseur de théâtre & concepteur électronicien</p>
         <p>Après une formation en électrotechnique, Clément travaille plusieurs années comme électricien avant d'orienter son parcours vers le spectacle vivant. Il se forme ensuite aux techniques du théâtre (lumière, son, plateau) à l'école du Grim Édif, à Lyon.</p>
@@ -1290,10 +1292,13 @@
     document.getElementById('tabBtn-transfo').classList.toggle('active', name === 'transfo');
     document.getElementById('tabBtn-bio').classList.toggle('active', name === 'bio');
     const bioVideo = document.getElementById('bioVideo');
-    if (bioVideo){
+    const bioBgWrap = document.getElementById('bioBgWrap');
+    if (bioVideo && bioBgWrap){
       if (name === 'bio'){
+        bioBgWrap.style.opacity = '1';
         bioVideo.play().catch(() => {});
       } else {
+        bioBgWrap.style.opacity = '0';
         bioVideo.pause();
       }
     }
