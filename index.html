@@ -85,7 +85,7 @@
   #location{ position:relative; overflow:hidden; }
   #contact{ position:relative; overflow:hidden; }
   #atelier-info{ position:relative; overflow:hidden; }
-  #bioBgWrap{ transition:opacity 0.6s ease; }
+  #bioBgWrap, #transfoBgWrap{ transition:opacity 0.6s ease; }
 
   .hero-bg-wrap{
     position:absolute; inset:0; z-index:-1; overflow:hidden;
@@ -634,6 +634,14 @@
 </section>
 
 <section id="atelier-info">
+  <div class="hero-bg-wrap" id="transfoBgWrap">
+    <div class="hero-bg-zoom">
+      <video class="hero-bg-img" id="transfoVideo" muted loop playsinline autoplay preload="auto" poster="images/transfo-bg-poster.jpg" aria-hidden="true">
+        <source src="images/transfo-bg.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="hero-bg-wrap" id="bioBgWrap" style="opacity:0;">
     <div class="hero-bg-zoom">
       <video class="hero-bg-img" id="bioVideo" muted loop playsinline preload="none" poster="images/bio-bg-poster.jpg" aria-hidden="true">
@@ -1291,16 +1299,22 @@
     document.getElementById('about-bio').style.display = (name === 'bio') ? '' : 'none';
     document.getElementById('tabBtn-transfo').classList.toggle('active', name === 'transfo');
     document.getElementById('tabBtn-bio').classList.toggle('active', name === 'bio');
+
+    const transfoVideo = document.getElementById('transfoVideo');
+    const transfoBgWrap = document.getElementById('transfoBgWrap');
     const bioVideo = document.getElementById('bioVideo');
     const bioBgWrap = document.getElementById('bioBgWrap');
-    if (bioVideo && bioBgWrap){
-      if (name === 'bio'){
-        bioBgWrap.style.opacity = '1';
-        bioVideo.play().catch(() => {});
-      } else {
-        bioBgWrap.style.opacity = '0';
-        bioVideo.pause();
-      }
+
+    if (name === 'bio'){
+      bioBgWrap.style.opacity = '1';
+      bioVideo.play().catch(() => {});
+      transfoBgWrap.style.opacity = '0';
+      transfoVideo.pause();
+    } else {
+      transfoBgWrap.style.opacity = '1';
+      transfoVideo.play().catch(() => {});
+      bioBgWrap.style.opacity = '0';
+      bioVideo.pause();
     }
   }
 
