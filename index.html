@@ -784,10 +784,39 @@
           <a href="#reservation" class="btn btn-primary" onclick="preselect('Atelier électronique — projet personnalisé')">Réserver cette session</a>
         </div>
       </div>
-      <div class="service-card">
+      <div class="service-card atelier-card" id="card-upcycling">
         <h3>Projet upcycling</h3>
         <p>Un vieil objet qui traîne dans un garage ou un tiroir ? On lui redonne une nouvelle utilité grâce à l'électronique.</p>
-        <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet upcycling')">Réserver cette session</a>
+        <div class="atelier-card-actions">
+          <a href="#reservation" class="btn btn-ghost" onclick="preselect('Atelier électronique — projet upcycling')">Réserver cette session</a>
+          <button type="button" class="btn btn-ghost atelier-more-btn" id="btn-upcycling" onclick="toggleAtelierDetail(event, 'card-upcycling', 'atelier-detail-upcycling', 'btn-upcycling')">En savoir plus</button>
+        </div>
+
+        <div class="atelier-detail" id="atelier-detail-upcycling">
+          <h4>Session upcycling — 50€ / 1h</h4>
+          <p>Un vieil objet qui dort dans un garage, un tiroir ou un grenier ? C'est ma session préférée ! On lui redonne vie, une nouvelle utilité et parfois même une toute nouvelle personnalité grâce à l'électronique.</p>
+          <p>Transformation, détournement, modernisation... on part de l'objet et on imagine ce qu'il pourrait devenir.</p>
+
+          <h4>Quelques exemples</h4>
+          <ul class="atelier-example-list">
+            <li>Un bel objet ancien qui prend la poussière dans votre grenier, qu'on décide de pimper</li>
+            <li>Une vieille radio vintage transformée en enceinte Bluetooth</li>
+            <li>Un vieux téléphone détourné en centrale de commande domotique pour piloter l'arrosage des plantes extérieures</li>
+          </ul>
+
+          <p>Laissez libre cours à votre imagination : on réfléchit, on bidouille et on crée ensemble.</p>
+
+          <h4>Tarifs dégressifs</h4>
+          <ul class="info-list">
+            <li><span class="k">1h</span><span>50€</span></li>
+            <li><span class="k">2h</span><span>90€ — premières modifications et transformation</span></li>
+            <li><span class="k">3h</span><span>125€ — amélioration, personnalisation et intégration de l'électronique</span></li>
+            <li><span class="k">4h</span><span>160€ — finalisation et mise au propre du projet</span></li>
+          </ul>
+          <p class="form-note">Matériel, composants et accompagnement compris.</p>
+
+          <a href="#reservation" class="btn btn-primary" onclick="preselect('Atelier électronique — projet upcycling')">Réserver cette session</a>
+        </div>
       </div>
     </div>
   </div>
