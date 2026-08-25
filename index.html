@@ -660,7 +660,7 @@
 <section id="atelier-info">
   <div class="hero-bg-wrap" id="transfoBgWrap">
     <div class="hero-bg-zoom">
-      <video class="hero-bg-img" id="transfoVideo" muted loop playsinline autoplay preload="auto" poster="images/transfo-bg-poster.jpg" aria-hidden="true">
+      <video class="hero-bg-img" id="transfoVideo" muted loop playsinline preload="auto" poster="images/transfo-bg-poster.jpg" aria-hidden="true">
         <source src="images/transfo-bg.mp4" type="video/mp4">
       </video>
     </div>
@@ -1041,7 +1041,7 @@
         <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-pet')">Découvrir</a>
       </div>
       <div class="service-card video-bg-card">
-        <video class="card-bg-video" id="styloVideo" autoplay muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg" aria-hidden="true">
+        <video class="card-bg-video" id="styloVideo" muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg" aria-hidden="true">
           <source src="images/impression3d-bg.mp4" type="video/mp4">
         </video>
         <div class="card-bg-overlay"></div>
@@ -1359,77 +1359,145 @@
     burger.setAttribute('aria-expanded', 'false');
   }));
 
-  // met en pause les vidéos de fond dès qu'elles sortent de l'écran (évite de faire ramer le navigateur)
+  // ---- Un seul effet actif à la fois (parallax OU vidéo), selon la partie la plus visible à l'écran ----
   (function(){
-    const videoIds = ['transfoVideo', 'bioVideo', 'styloVideo'];
-    // on retient si chaque vidéo "devrait" jouer selon la logique du site (onglet actif, etc.)
-    const shouldPlay = { transfoVideo:true, bioVideo:false, styloVideo:true };
-    window.__videoShouldPlay = shouldPlay; // exposé pour être mis à jour par switchAboutTab
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const video = entry.target;
-        if (entry.isIntersecting){
-          if (shouldPlay[video.id] !== false){
-            video.play().catch(() => {});
-          }
-        } else {
-          video.pause();
-        }
+    const zoneParallaxEnabled = {}; // sectionId -> booléen, lu par les écouteurs mousemove plus bas
+
+    const EFFECT_ZONES = [
+      { id:'accueil',      kind:'parallax' },
+      { id:'location',     kind:'parallax' },
+      { id:'contact',      kind:'parallax' },
+      { id:'atelier-info', kind:'video-tabbed' },
+      { id:'impression3d', kind:'video', videoId:'styloVideo' },
+    ];
+
+    function deactivateZone(zone){
+      if (!zone) return;
+      if (zone.kind === 'parallax'){
+        zoneParallaxEnabled[zone.id] = false;
+        const parallaxId = zone.id === 'accueil' ? 'heroParallax' : (zone.id === 'location' ? 'locationParallax' : 'contactParallax');
+        const el = document.getElementById(parallaxId);
+        if (el) el.style.transform = 'translate(0,0)';
+      } else if (zone.kind === 'video'){
+        const v = document.getElementById(zone.videoId);
+        if (v) v.pause();
+      } else if (zone.kind === 'video-tabbed'){
+        ['transfoVideo', 'bioVideo'].forEach(id => {
+          const v = document.getElementById(id);
+          if (v) v.pause();
+        });
+      }
+    }
+
+    function activateZone(zone){
+      if (!zone) return;
+      if (zone.kind === 'parallax'){
+        zoneParallaxEnabled[zone.id] = true;
+      } else if (zone.kind === 'video'){
+        const v = document.getElementById(zone.videoId);
+        if (v) v.play().catch(() => {});
+      } else if (zone.kind === 'video-tabbed'){
+        const bioPanel = document.getElementById('about-bio');
+        const activeId = (bioPanel && bioPanel.style.display !== 'none') ? 'bioVideo' : 'transfoVideo';
+        const otherId = activeId === 'bioVideo' ? 'transfoVideo' : 'bioVideo';
+        const v = document.getElementById(activeId);
+        const other = document.getElementById(otherId);
+        if (v) v.play().catch(() => {});
+        if (other) other.pause();
+        const wrapOn = document.getElementById(activeId === 'bioVideo' ? 'bioBgWrap' : 'transfoBgWrap');
+        const wrapOff = document.getElementById(activeId === 'bioVideo' ? 'transfoBgWrap' : 'bioBgWrap');
+        if (wrapOn) wrapOn.style.opacity = '1';
+        if (wrapOff) wrapOff.style.opacity = '0';
+      }
+    }
+
+    let activeZoneId = null;
+    const ratios = {};
+    const MIN_RATIO = 0.15; // en dessous, on ne considère la zone visible par personne
+
+    function reevaluate(){
+      let bestId = null, bestRatio = MIN_RATIO;
+      EFFECT_ZONES.forEach(z => {
+        const r = ratios[z.id] || 0;
+        if (r > bestRatio){ bestRatio = r; bestId = z.id; }
       });
-    }, { threshold: 0.05 });
+      if (bestId !== activeZoneId){
+        deactivateZone(EFFECT_ZONES.find(z => z.id === activeZoneId));
+        activateZone(EFFECT_ZONES.find(z => z.id === bestId));
+        activeZoneId = bestId;
+      }
+    }
 
-    videoIds.forEach(id => {
-      const el = document.getElementById(id);
+    const thresholds = Array.from({ length:21 }, (_, i) => i / 20);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { ratios[entry.target.id] = entry.intersectionRatio; });
+      reevaluate();
+    }, { threshold: thresholds });
+
+    EFFECT_ZONES.forEach(z => {
+      const el = document.getElementById(z.id);
       if (el) io.observe(el);
     });
 
-    // si l'onglet du navigateur passe en arrière-plan, on coupe tout par sécurité
+    // coupe tout si l'onglet du navigateur passe en arrière-plan
     document.addEventListener('visibilitychange', () => {
       if (document.hidden){
-        videoIds.forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.pause();
+        ['transfoVideo', 'bioVideo', 'styloVideo'].forEach(id => {
+          const v = document.getElementById(id);
+          if (v) v.pause();
         });
+      } else {
+        reevaluate();
       }
     });
-  })();
 
-  // effet parallax des photos de fond au mouvement de la souris (throttlé via requestAnimationFrame)
-  (function(){
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
-    const maxShift = 26; // décalage maximum en pixels
-    const pairs = [
-      ['accueil', 'heroParallax'],
-      ['location', 'locationParallax'],
-      ['contact', 'contactParallax'],
-    ];
-    pairs.forEach(([sectionId, parallaxId]) => {
-      const section = document.getElementById(sectionId);
-      const parallax = document.getElementById(parallaxId);
-      if (!section || !parallax) return;
-      let pendingX = 0, pendingY = 0, ticking = false;
-      function applyTransform(){
-        parallax.style.transform = `translate(${pendingX.toFixed(1)}px, ${pendingY.toFixed(1)}px)`;
-        ticking = false;
+    // ré-appelée par switchAboutTab quand on change d'onglet Présentation, pour resynchroniser la bonne vidéo
+    window.__syncAtelierInfoVideo = function(){
+      if (activeZoneId === 'atelier-info'){
+        activateZone(EFFECT_ZONES.find(z => z.id === 'atelier-info'));
       }
-      section.addEventListener('mousemove', (e) => {
-        const rect = section.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        pendingX = -x * maxShift * 2;
-        pendingY = -y * maxShift * 2;
-        if (!ticking){
-          ticking = true;
-          requestAnimationFrame(applyTransform);
+    };
+
+    // effet parallax des photos de fond au mouvement de la souris (actif seulement si la zone est la plus visible)
+    if (!reduceMotion){
+      const maxShift = 26;
+      const pairs = [
+        ['accueil', 'heroParallax'],
+        ['location', 'locationParallax'],
+        ['contact', 'contactParallax'],
+      ];
+      pairs.forEach(([sectionId, parallaxId]) => {
+        const section = document.getElementById(sectionId);
+        const parallax = document.getElementById(parallaxId);
+        if (!section || !parallax) return;
+        let pendingX = 0, pendingY = 0, ticking = false;
+        function applyTransform(){
+          if (zoneParallaxEnabled[sectionId]){
+            parallax.style.transform = `translate(${pendingX.toFixed(1)}px, ${pendingY.toFixed(1)}px)`;
+          }
+          ticking = false;
         }
-      }, { passive:true });
-      section.addEventListener('mouseleave', () => {
-        pendingX = 0; pendingY = 0;
-        requestAnimationFrame(applyTransform);
+        section.addEventListener('mousemove', (e) => {
+          if (!zoneParallaxEnabled[sectionId]) return; // une autre partie est active : on ignore
+          const rect = section.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          pendingX = -x * maxShift * 2;
+          pendingY = -y * maxShift * 2;
+          if (!ticking){
+            ticking = true;
+            requestAnimationFrame(applyTransform);
+          }
+        }, { passive:true });
+        section.addEventListener('mouseleave', () => {
+          if (!zoneParallaxEnabled[sectionId]) return;
+          pendingX = 0; pendingY = 0;
+          requestAnimationFrame(applyTransform);
+        });
       });
-    });
+    }
   })();
 
   // affichage/masquage des blocs détaillés (Cab'sule, téléphone vintage) au clic sur "Découvrir"
@@ -1481,28 +1549,8 @@
     document.getElementById('tabBtn-transfo').classList.toggle('active', name === 'transfo');
     document.getElementById('tabBtn-bio').classList.toggle('active', name === 'bio');
 
-    const transfoVideo = document.getElementById('transfoVideo');
-    const transfoBgWrap = document.getElementById('transfoBgWrap');
-    const bioVideo = document.getElementById('bioVideo');
-    const bioBgWrap = document.getElementById('bioBgWrap');
-
-    if (window.__videoShouldPlay){
-      window.__videoShouldPlay.bio = (name === 'bio');
-      window.__videoShouldPlay.transfoVideo = (name !== 'bio');
-      window.__videoShouldPlay.bioVideo = (name === 'bio');
-    }
-
-    if (name === 'bio'){
-      bioBgWrap.style.opacity = '1';
-      bioVideo.play().catch(() => {});
-      transfoBgWrap.style.opacity = '0';
-      transfoVideo.pause();
-    } else {
-      transfoBgWrap.style.opacity = '1';
-      transfoVideo.play().catch(() => {});
-      bioBgWrap.style.opacity = '0';
-      bioVideo.pause();
-    }
+    // ne lance/relance la bonne vidéo que si la section Présentation est bien la partie active à l'écran
+    if (window.__syncAtelierInfoVideo) window.__syncAtelierInfoVideo();
   }
 
   // ouverture/fermeture d'un panneau vidéo, en alternant le sens du glissement
