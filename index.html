@@ -93,7 +93,9 @@
   .hero-bg-zoom{
     position:absolute; inset:-30px;
     animation:hero-zoom 24s ease-in-out infinite alternate;
+    animation-play-state:paused;
   }
+  .zone-active .hero-bg-zoom{ animation-play-state:running; }
   @keyframes hero-zoom{
     0%{ transform:scale(1.05); }
     100%{ transform:scale(1.16); }
@@ -1373,6 +1375,12 @@
       { id:'impression3d', kind:'video', videoId:'styloVideo' },
     ];
 
+    function setZoom(wrapEl, running){
+      if (!wrapEl) return;
+      const zoomEl = wrapEl.querySelector('.hero-bg-zoom');
+      if (zoomEl) zoomEl.style.animationPlayState = running ? 'running' : 'paused';
+    }
+
     function deactivateZone(zone){
       if (!zone) return;
       if (zone.kind === 'parallax'){
@@ -1380,6 +1388,7 @@
         const parallaxId = zone.id === 'accueil' ? 'heroParallax' : (zone.id === 'location' ? 'locationParallax' : 'contactParallax');
         const el = document.getElementById(parallaxId);
         if (el) el.style.transform = 'translate(0,0)';
+        setZoom(document.getElementById(zone.id), false);
       } else if (zone.kind === 'video'){
         const v = document.getElementById(zone.videoId);
         if (v) v.pause();
@@ -1388,6 +1397,8 @@
           const v = document.getElementById(id);
           if (v) v.pause();
         });
+        setZoom(document.getElementById('transfoBgWrap'), false);
+        setZoom(document.getElementById('bioBgWrap'), false);
       }
     }
 
@@ -1395,6 +1406,7 @@
       if (!zone) return;
       if (zone.kind === 'parallax'){
         zoneParallaxEnabled[zone.id] = true;
+        setZoom(document.getElementById(zone.id), true);
       } else if (zone.kind === 'video'){
         const v = document.getElementById(zone.videoId);
         if (v) v.play().catch(() => {});
@@ -1406,16 +1418,21 @@
         const other = document.getElementById(otherId);
         if (v) v.play().catch(() => {});
         if (other) other.pause();
-        const wrapOn = document.getElementById(activeId === 'bioVideo' ? 'bioBgWrap' : 'transfoBgWrap');
-        const wrapOff = document.getElementById(activeId === 'bioVideo' ? 'transfoBgWrap' : 'bioBgWrap');
+        const wrapOnId = activeId === 'bioVideo' ? 'bioBgWrap' : 'transfoBgWrap';
+        const wrapOffId = activeId === 'bioVideo' ? 'transfoBgWrap' : 'bioBgWrap';
+        const wrapOn = document.getElementById(wrapOnId);
+        const wrapOff = document.getElementById(wrapOffId);
         if (wrapOn) wrapOn.style.opacity = '1';
         if (wrapOff) wrapOff.style.opacity = '0';
+        setZoom(wrapOn, true);
+        setZoom(wrapOff, false);
       }
     }
 
     let activeZoneId = null;
     const ratios = {};
-    const MIN_RATIO = 0.15; // en dessous, on ne considère la zone visible par personne
+    const MIN_RATIO = 0.3; // il faut qu'une zone occupe vraiment l'écran pour être considérée active
+    let reevalTimer = null;
 
     function reevaluate(){
       let bestId = null, bestRatio = MIN_RATIO;
@@ -1433,7 +1450,9 @@
     const thresholds = Array.from({ length:21 }, (_, i) => i / 20);
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => { ratios[entry.target.id] = entry.intersectionRatio; });
-      reevaluate();
+      // on attend que le défilement se stabilise avant de basculer, pour éviter tout à-coup pendant le scroll
+      clearTimeout(reevalTimer);
+      reevalTimer = setTimeout(reevaluate, 180);
     }, { threshold: thresholds });
 
     EFFECT_ZONES.forEach(z => {
