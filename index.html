@@ -689,7 +689,7 @@
 
     <div class="tab-panel about-text reveal" id="about-transfo">
       <p>AtelierTransfo est un espace de création où électronique, upcycling, impression 3D et théâtre se mélangent. Ici, on répare, on détourne, on redonne vie aux objets plutôt que de les jeter — l'upcycling est au cœur de chaque projet.</p>
-      <p>Beaucoup de mes créations naissent de spectacles que j'ai pu voir, et pour ça je récupère et démonte des appareils électroniques obsolètes. Vous avez du matériel hors service qui dort chez vous ? Ne le jetez pas à la déchetterie — venez me le confier. On garde souvent les objets en se disant qu'on en fera quelque chose, un jour. À l'atelier Transfo, je les tire vers le haut. C'est ça, l'upcycling — leur offrir une seconde vie, dans mon cas via l'électronique.</p>
+      <p>Beaucoup de mes créations naissent de spectacles que j'ai pu voir, et pour ça je récupère et démonte des appareils électroniques obsolètes. Vous avez du matériel hors service qui dort chez vous ? Ne le jetez pas à la déchetterie — venez me le confier. On garde souvent les objets en se disant qu'on en fera quelque chose, un jour. À l'atelier Transfo, ce jour est arrivé : on tire cet objet vers le haut. C'est ça, l'upcycling — offrir une seconde vie, dans mon cas via l'électronique.</p>
       <p>Au-delà de la création, je propose aussi des ateliers d'initiation à l'électronique, ouverts à tous les niveaux. L'atelier est un lieu de rencontre pour les bidouilleurs, créateurs et curieux qui pensent qu'on peut toujours fabriquer, réparer ou réinventer par soi-même.</p>
       <p><a href="https://instagram.com/ateliertransfo" target="_blank" rel="noopener" class="pink-inline-link">@ateliertransfo</a>, c'est à l'intérieur du Pink Atelier depuis février 2026. Je partage ce grand local avec 18 autres créateurices au <a href="https://www.google.com/maps/search/?api=1&query=1+rue+G%C3%A9n%C3%A9ral+Rolland+Besan%C3%A7on" target="_blank" rel="noopener" class="pink-inline-link">1 rue Général Rolland</a> à Besançon — venez nous voir et découvrez tout le collectif sur <a href="https://instagram.com/atelier.le.pink" target="_blank" rel="noopener" class="pink-inline-link">@atelier.le.pink</a>.</p>
     </div>
@@ -1042,7 +1042,7 @@
         <p>J'ai du PLA et du PETG dans plusieurs couleurs. Mais si la couleur ne vous importe pas, je privilégie en premier lieu le PET recyclé, que je fabrique moi-même à partir de bouteilles en plastique récupérées.</p>
         <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-pet')">Découvrir</a>
       </div>
-      <div class="service-card video-bg-card">
+      <div class="service-card video-bg-card" id="stylo-card">
         <video class="card-bg-video" id="styloVideo" muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg" aria-hidden="true">
           <source src="images/impression3d-bg.mp4" type="video/mp4">
         </video>
@@ -1054,6 +1054,19 @@
             <a href="#video-draw" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-draw')">Voir le dessin</a>
             <a href="#video-cut" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-cut')">Voir la découpe</a>
           </div>
+        </div>
+      </div>
+      <div class="service-card video-bg-card" id="pcb-card">
+        <video class="card-bg-video" id="pcbVideo" muted loop playsinline preload="metadata" poster="images/pcb-bg-poster.jpg" aria-hidden="true">
+          <source src="images/pcb-bg.mp4" type="video/mp4">
+        </video>
+        <div class="card-bg-overlay"></div>
+        <div class="card-content">
+          <h3>Création de PCB (carte électronique personnalisée)</h3>
+          <p>1. Dessin du schéma électrique sur la plaque de cuivre, avec l'embout stylo de l'imprimante 3D.<br>
+          2. Bain de la plaque de cuivre dans le perchlorure de fer.<br>
+          3. Décapage à l'acétone pour retirer l'encre.<br>
+          4. Perçage des trous pour la connexion des composants.</p>
         </div>
       </div>
     </div>
@@ -1372,7 +1385,8 @@
       { id:'location',     kind:'parallax' },
       { id:'contact',      kind:'parallax' },
       { id:'atelier-info', kind:'video-tabbed' },
-      { id:'impression3d', kind:'video', videoId:'styloVideo' },
+      { id:'stylo-zone',   kind:'video', videoId:'styloVideo', observeId:'stylo-card' },
+      { id:'pcb-zone',     kind:'video', videoId:'pcbVideo',   observeId:'pcb-card' },
     ];
 
     function setZoom(wrapEl, running){
@@ -1448,15 +1462,21 @@
     }
 
     const thresholds = Array.from({ length:21 }, (_, i) => i / 20);
+    const zoneByObserveId = {};
+    EFFECT_ZONES.forEach(z => { zoneByObserveId[z.observeId || z.id] = z; });
+
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { ratios[entry.target.id] = entry.intersectionRatio; });
+      entries.forEach(entry => {
+        const zone = zoneByObserveId[entry.target.id];
+        if (zone) ratios[zone.id] = entry.intersectionRatio;
+      });
       // on attend que le défilement se stabilise avant de basculer, pour éviter tout à-coup pendant le scroll
       clearTimeout(reevalTimer);
       reevalTimer = setTimeout(reevaluate, 180);
     }, { threshold: thresholds });
 
     EFFECT_ZONES.forEach(z => {
-      const el = document.getElementById(z.id);
+      const el = document.getElementById(z.observeId || z.id);
       if (el) io.observe(el);
     });
 
