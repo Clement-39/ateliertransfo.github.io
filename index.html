@@ -85,6 +85,7 @@
   #location{ position:relative; overflow:hidden; }
   #contact{ position:relative; overflow:hidden; }
   #atelier-info{ position:relative; overflow:hidden; }
+  #impression3d{ position:relative; overflow:hidden; }
   #bioBgWrap, #transfoBgWrap{ transition:opacity 0.6s ease; }
 
   .hero-bg-wrap{
@@ -123,6 +124,7 @@
   .card-bg-video{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
   }
+  #pcbVideo{ object-position:center 85%; transform:scale(1.25); }
   .card-bg-overlay{
     position:absolute; inset:0; z-index:1;
     background:
@@ -1019,6 +1021,14 @@
 </section>
 
 <section id="impression3d">
+  <div class="hero-bg-wrap" id="impression3dBgWrap">
+    <div class="hero-bg-zoom">
+      <div class="hero-bg-parallax" id="impression3dParallax">
+        <img src="images/impression3d-section-bg.jpg" class="hero-bg-img" alt="">
+      </div>
+    </div>
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Impression 3D</span>
@@ -1385,8 +1395,7 @@
       { id:'location',     kind:'parallax' },
       { id:'contact',      kind:'parallax' },
       { id:'atelier-info', kind:'video-tabbed' },
-      { id:'stylo-zone',   kind:'video', videoId:'styloVideo', observeId:'stylo-card' },
-      { id:'pcb-zone',     kind:'video', videoId:'pcbVideo',   observeId:'pcb-card' },
+      { id:'impression3d', kind:'video-multi', videoIds:['styloVideo','pcbVideo'], bgWrapId:'impression3dBgWrap', minRatio:0.12 },
     ];
 
     function setZoom(wrapEl, running){
@@ -1406,6 +1415,15 @@
       } else if (zone.kind === 'video'){
         const v = document.getElementById(zone.videoId);
         if (v) v.pause();
+      } else if (zone.kind === 'video-multi'){
+        zoneParallaxEnabled[zone.id] = false;
+        const el = document.getElementById(zone.id === 'impression3d' ? 'impression3dParallax' : null);
+        if (el) el.style.transform = 'translate(0,0)';
+        (zone.videoIds || []).forEach(id => {
+          const v = document.getElementById(id);
+          if (v) v.pause();
+        });
+        setZoom(document.getElementById(zone.bgWrapId), false);
       } else if (zone.kind === 'video-tabbed'){
         ['transfoVideo', 'bioVideo'].forEach(id => {
           const v = document.getElementById(id);
@@ -1424,6 +1442,13 @@
       } else if (zone.kind === 'video'){
         const v = document.getElementById(zone.videoId);
         if (v) v.play().catch(() => {});
+      } else if (zone.kind === 'video-multi'){
+        zoneParallaxEnabled[zone.id] = true;
+        (zone.videoIds || []).forEach(id => {
+          const v = document.getElementById(id);
+          if (v) v.play().catch(() => {});
+        });
+        setZoom(document.getElementById(zone.bgWrapId), true);
       } else if (zone.kind === 'video-tabbed'){
         const bioPanel = document.getElementById('about-bio');
         const activeId = (bioPanel && bioPanel.style.display !== 'none') ? 'bioVideo' : 'transfoVideo';
@@ -1449,10 +1474,11 @@
     let reevalTimer = null;
 
     function reevaluate(){
-      let bestId = null, bestRatio = MIN_RATIO;
+      let bestId = null, bestRatio = 0;
       EFFECT_ZONES.forEach(z => {
         const r = ratios[z.id] || 0;
-        if (r > bestRatio){ bestRatio = r; bestId = z.id; }
+        const min = z.minRatio !== undefined ? z.minRatio : MIN_RATIO;
+        if (r > min && r > bestRatio){ bestRatio = r; bestId = z.id; }
       });
       if (bestId !== activeZoneId){
         deactivateZone(EFFECT_ZONES.find(z => z.id === activeZoneId));
@@ -1483,7 +1509,7 @@
     // coupe tout si l'onglet du navigateur passe en arrière-plan
     document.addEventListener('visibilitychange', () => {
       if (document.hidden){
-        ['transfoVideo', 'bioVideo', 'styloVideo'].forEach(id => {
+        ['transfoVideo', 'bioVideo', 'styloVideo', 'pcbVideo'].forEach(id => {
           const v = document.getElementById(id);
           if (v) v.pause();
         });
@@ -1506,6 +1532,7 @@
         ['accueil', 'heroParallax'],
         ['location', 'locationParallax'],
         ['contact', 'contactParallax'],
+        ['impression3d', 'impression3dParallax'],
       ];
       pairs.forEach(([sectionId, parallaxId]) => {
         const section = document.getElementById(sectionId);
