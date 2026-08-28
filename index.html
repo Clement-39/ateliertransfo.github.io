@@ -126,10 +126,9 @@
   .video-bg-card{
     position:relative; overflow:hidden; min-height:280px;
   }
-  .card-bg-video{
+  .card-bg-video, .card-bg-media{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
   }
-  #pcbVideo{ object-position:center 100%; transform:scale(1.7); transform-origin:center bottom; }
   .card-bg-overlay{
     position:absolute; inset:0; z-index:1;
     background:
@@ -1058,9 +1057,7 @@
         <a href="#video-pet" class="btn btn-ghost" onclick="toggleVideoPanel(event, 'video-pet')">Découvrir</a>
       </div>
       <div class="service-card video-bg-card" id="stylo-card">
-        <video class="card-bg-video" id="styloVideo" muted loop playsinline preload="metadata" poster="images/impression3d-bg-poster.jpg" aria-hidden="true">
-          <source src="images/impression3d-bg.mp4" type="video/mp4">
-        </video>
+        <img class="card-bg-media" src="images/decoupe-photo.jpg" alt="Découpe à l'extension cutter sur feuille autocollante, lettrage Atelier Transfo" loading="lazy">
         <div class="card-bg-overlay"></div>
         <div class="card-content">
           <h3>Stylo & découpe (Bambu Lab A2L)</h3>
@@ -1072,9 +1069,7 @@
         </div>
       </div>
       <div class="service-card video-bg-card" id="pcb-card">
-        <video class="card-bg-video" id="pcbVideo" muted loop playsinline preload="metadata" poster="images/pcb-bg-poster.jpg" aria-hidden="true">
-          <source src="images/pcb-bg.mp4" type="video/mp4">
-        </video>
+        <img class="card-bg-media" src="images/pcb-photo.jpg" alt="Plaque de cuivre gravée pour la création d'un circuit imprimé (PCB)" loading="lazy">
         <div class="card-bg-overlay"></div>
         <div class="card-content">
           <h3>Création de PCB (carte électronique personnalisée)</h3>
@@ -1400,8 +1395,15 @@
       { id:'location',     kind:'parallax' },
       { id:'contact',      kind:'parallax' },
       { id:'atelier-info', kind:'video-tabbed' },
-      { id:'impression3d', kind:'video-multi', videoIds:['styloVideo','pcbVideo'], bgWrapId:'impression3dBgWrap', minRatio:0.12 },
+      { id:'impression3d', kind:'parallax', minRatio:0.12 },
     ];
+
+    const PARALLAX_ID_BY_SECTION = {
+      accueil:'heroParallax',
+      location:'locationParallax',
+      contact:'contactParallax',
+      impression3d:'impression3dParallax',
+    };
 
     function setZoom(wrapEl, running){
       if (!wrapEl) return;
@@ -1413,22 +1415,12 @@
       if (!zone) return;
       if (zone.kind === 'parallax'){
         zoneParallaxEnabled[zone.id] = false;
-        const parallaxId = zone.id === 'accueil' ? 'heroParallax' : (zone.id === 'location' ? 'locationParallax' : 'contactParallax');
-        const el = document.getElementById(parallaxId);
+        const el = document.getElementById(PARALLAX_ID_BY_SECTION[zone.id]);
         if (el) el.style.transform = 'translate(0,0)';
         setZoom(document.getElementById(zone.id), false);
       } else if (zone.kind === 'video'){
         const v = document.getElementById(zone.videoId);
         if (v) v.pause();
-      } else if (zone.kind === 'video-multi'){
-        zoneParallaxEnabled[zone.id] = false;
-        const el = document.getElementById(zone.id === 'impression3d' ? 'impression3dParallax' : null);
-        if (el) el.style.transform = 'translate(0,0)';
-        (zone.videoIds || []).forEach(id => {
-          const v = document.getElementById(id);
-          if (v) v.pause();
-        });
-        setZoom(document.getElementById(zone.bgWrapId), false);
       } else if (zone.kind === 'video-tabbed'){
         ['transfoVideo', 'bioVideo'].forEach(id => {
           const v = document.getElementById(id);
@@ -1447,13 +1439,6 @@
       } else if (zone.kind === 'video'){
         const v = document.getElementById(zone.videoId);
         if (v) v.play().catch(() => {});
-      } else if (zone.kind === 'video-multi'){
-        zoneParallaxEnabled[zone.id] = true;
-        (zone.videoIds || []).forEach(id => {
-          const v = document.getElementById(id);
-          if (v) v.play().catch(() => {});
-        });
-        setZoom(document.getElementById(zone.bgWrapId), true);
       } else if (zone.kind === 'video-tabbed'){
         const bioPanel = document.getElementById('about-bio');
         const activeId = (bioPanel && bioPanel.style.display !== 'none') ? 'bioVideo' : 'transfoVideo';
@@ -1514,7 +1499,7 @@
     // coupe tout si l'onglet du navigateur passe en arrière-plan
     document.addEventListener('visibilitychange', () => {
       if (document.hidden){
-        ['transfoVideo', 'bioVideo', 'styloVideo', 'pcbVideo'].forEach(id => {
+        ['transfoVideo', 'bioVideo'].forEach(id => {
           const v = document.getElementById(id);
           if (v) v.pause();
         });
