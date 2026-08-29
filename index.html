@@ -86,6 +86,16 @@
   #contact{ position:relative; overflow:hidden; }
   #atelier-info{ position:relative; overflow:hidden; }
   #impression3d{ position:relative; overflow:hidden; }
+
+  .circuit-bg{
+    position:relative;
+    background-image:
+      linear-gradient(rgba(36,88,47,0.82), rgba(36,88,47,0.82)),
+      url('images/circuit-tile.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: cover, 620px 620px;
+    background-position: center, center;
+  }
   #bioBgWrap, #transfoBgWrap{ transition:opacity 0.6s ease; }
 
   .hero-bg-wrap{
@@ -255,7 +265,19 @@
   @keyframes wrench-tilt{ 0%, 100%{ transform:rotate(-8deg); } 50%{ transform:rotate(8deg); } }
 
   /* ---------- Section shell ---------- */
-  section{ padding:80px 24px; border-top:1px solid var(--line); }
+  section{ position:relative; padding:80px 24px; }
+  section::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:8px;
+    transform:translateY(-4px); pointer-events:none;
+    background-image:
+      radial-gradient(circle, var(--accent) 2px, transparent 2.3px),
+      linear-gradient(to right, var(--line), var(--line));
+    background-size: 40px 8px, 100% 1px;
+    background-position: 20px center, center;
+    background-repeat: repeat-x, no-repeat;
+    opacity:0.65;
+  }
+  .hero::before{ display:none; }
   .section-head{ max-width:640px; margin:0 0 44px; }
   .section-head .eyebrow{ margin-bottom:10px; }
   .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.2rem); margin:0 0 12px; }
@@ -1108,7 +1130,7 @@
   </div>
 </section>
 
-<section id="creations">
+<section id="creations" class="circuit-bg">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Créations</span>
