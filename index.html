@@ -518,10 +518,13 @@
   ::-webkit-scrollbar{ width:14px; height:14px; }
   ::-webkit-scrollbar-track{ background:var(--bg); }
   ::-webkit-scrollbar-thumb{
-    background:var(--accent);
-    clip-path: polygon(50.00% 2.00%, 50.00% 98.00%, 43.20% 70.92%, 21.79% 88.83%, 32.20% 62.93%, 4.35% 64.83%, 28.00% 50.00%, 4.35% 35.17%, 32.20% 37.07%, 21.79% 11.17%, 43.20% 29.08%);
+    background-color:var(--bg);
+    background-image:url('images/scrollbar-star.png');
+    background-repeat:repeat-y;
+    background-position:center;
+    background-size:14px 22px;
   }
-  ::-webkit-scrollbar-thumb:hover{ background:#FFEC4D; }
+  ::-webkit-scrollbar-thumb:hover{ background-color:#1a3320; }
   ::-webkit-scrollbar-button{
     background:var(--accent);
     height:12px;
