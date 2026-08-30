@@ -265,19 +265,7 @@
   @keyframes wrench-tilt{ 0%, 100%{ transform:rotate(-8deg); } 50%{ transform:rotate(8deg); } }
 
   /* ---------- Section shell ---------- */
-  section{ position:relative; padding:80px 24px; }
-  section::before{
-    content:""; position:absolute; top:0; left:0; right:0; height:8px;
-    transform:translateY(-4px); pointer-events:none;
-    background-image:
-      radial-gradient(circle, var(--accent) 2px, transparent 2.3px),
-      linear-gradient(to right, var(--line), var(--line));
-    background-size: 40px 8px, 100% 1px;
-    background-position: 20px center, center;
-    background-repeat: repeat-x, no-repeat;
-    opacity:0.65;
-  }
-  .hero::before{ display:none; }
+  section{ padding:80px 24px; border-top:1px solid var(--line); }
   .section-head{ max-width:640px; margin:0 0 44px; }
   .section-head .eyebrow{ margin-bottom:10px; }
   .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.2rem); margin:0 0 12px; }
@@ -521,6 +509,20 @@
   footer a{ color:var(--muted); text-decoration:underline; }
 
   ::selection{ background:var(--accent); color:var(--bg); }
+
+  /* ---------- Barre de défilement personnalisée ---------- */
+  html{
+    scrollbar-width:thin; /* Firefox */
+    scrollbar-color: var(--accent-dim) var(--bg);
+  }
+  ::-webkit-scrollbar{ width:12px; height:12px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{
+    background:var(--accent-dim);
+    border-radius:20px;
+    border:3px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover{ background:var(--accent); }
 
   /* visible keyboard focus everywhere */
   a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
