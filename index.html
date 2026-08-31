@@ -511,9 +511,13 @@
   ::selection{ background:var(--accent); color:var(--bg); }
 
   /* ---------- Barre de défilement personnalisée (demi-éclat du logo) ---------- */
-  html{
-    scrollbar-width:thin; /* Firefox */
-    scrollbar-color: var(--accent) var(--bg);
+  /* scrollbar-color n'est utilisé qu'en repli pour les navigateurs qui NE supportent PAS
+     les pseudo-éléments ::-webkit-scrollbar (ex: Firefox), pour ne jamais écraser la forme en étoile */
+  @supports not selector(::-webkit-scrollbar){
+    html{
+      scrollbar-width:thin;
+      scrollbar-color: var(--accent) var(--bg);
+    }
   }
   ::-webkit-scrollbar{ width:14px; height:14px; }
   ::-webkit-scrollbar-track{ background:var(--bg); }
