@@ -474,7 +474,7 @@
     transition:max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
   }
   .caracteristiques-panel.open{
-    max-height:500px; opacity:1; margin-top:20px;
+    max-height:2400px; opacity:1; margin-top:20px;
   }
   .caracteristiques-panel .info-list{ margin:0; }
 
@@ -1043,13 +1043,14 @@
 
         <div class="quick-tile-row">
           <button type="button" class="quick-tile" id="btn-carac" onclick="toggleCaracteristiques(event)">
-            <span class="quick-tile-arrow" id="carac-arrow">▾</span> Caractéristiques
+            <span class="quick-tile-arrow" id="carac-arrow">▾</span> Plus d'infos
           </button>
           <a href="musiques.html" target="_blank" rel="noopener" class="quick-tile">Liste des musiques</a>
           <a href="#reservation" class="quick-tile quick-tile-accent" onclick="preselect('Location de créations — la Cab\'sule')">Réserver la Cab'sule</a>
         </div>
 
         <div class="caracteristiques-panel" id="caracteristiques-panel">
+          <h4>Caractéristiques</h4>
           <ul class="info-list">
             <li><span class="k">Dimensions</span> <span>Hauteur 2m20 · Largeur 90cm · Profondeur 1m</span></li>
             <li><span class="k">Matériaux</span> <span>Structure en chêne massif, parois en PVC</span></li>
@@ -1057,36 +1058,34 @@
             <li><span class="k">Fonctionnement</span> <span>On décroche, on compose une année (1940 à aujourd'hui), une musique aléatoire de cette année se lance</span></li>
             <li><span class="k">Ambiance</span> <span>Jeux de lumière et jet de fumée synchronisés avec la musique</span></li>
           </ul>
+
+          <h4>Spécifications techniques</h4>
+          <ul class="info-list">
+            <li><span class="k">Montage</span> <span>Doit être fait en ma présence — 6 blocs démontables (3 murs, 1 porte, 1 sol, 1 plafond), charnières rapides, environ 1h</span></li>
+            <li><span class="k">Transport</span> <span>Je fournis le véhicule de transport adéquat et m'occupe de la livraison : aller-retour depuis Besançon (25) — modalités à discuter ensemble</span></li>
+            <li><span class="k">Puissance électrique</span> <span>Jeux de lumière 1700W + sonorisation 200W, soit 1900W au total — prévoir une arrivée électrique 16A en 3G2.5</span></li>
+          </ul>
+
+          <h4>Sécurité et précautions</h4>
+          <ul class="info-list">
+            <li><span class="k">Nuit</span> <span>Gardiennage ou surveillance requis en cas d'installation la nuit</span></li>
+            <li><span class="k">Extérieur</span> <span>Bâche de protection fournie à poser la nuit en cas d'exposition en plein air</span></li>
+            <li><span class="k">Incendie</span> <span>Extincteur classe AB à prévoir à proximité</span></li>
+            <li><span class="k">Personnel</span> <span>Formation express des techniciens le jour du montage</span></li>
+          </ul>
+
+          <h4>Droits SACEM</h4>
+          <p>Pour les événements publics ou de grande ampleur, un listing de chaque musique répertoriant environ 300 morceaux classés par année vous sera délivré, et devra faire l'objet d'une autorisation auprès de la SACEM.</p>
+
+          <h4>Tarifs</h4>
+          <ul class="info-list">
+            <li><span class="k">Journée</span> <span>250€</span></li>
+            <li><span class="k">Week-end</span> <span>450€</span></li>
+            <li><span class="k">Semaine</span> <span>850€</span></li>
+            <li><span class="k">Caution</span> <span>1800€</span></li>
+          </ul>
+          <p class="form-note">Frais de transport non compris, variables selon la distance. Tarifs pouvant s'ajuster selon les horaires spécifiques de l'événement.</p>
         </div>
-
-        <h4>Spécifications techniques</h4>
-        <ul class="info-list">
-          <li><span class="k">Montage</span> <span>Doit être fait en ma présence — 6 blocs démontables (3 murs, 1 porte, 1 sol, 1 plafond), charnières rapides, environ 1h</span></li>
-          <li><span class="k">Transport</span> <span>Je fournis le véhicule de transport adéquat et m'occupe de la livraison : aller-retour depuis Besançon (25) — modalités à discuter ensemble</span></li>
-          <li><span class="k">Puissance électrique</span> <span>Jeux de lumière 1700W + sonorisation 200W, soit 1900W au total — prévoir une arrivée électrique 16A en 3G2.5</span></li>
-        </ul>
-
-        <h4>Sécurité et précautions</h4>
-        <ul class="info-list">
-          <li><span class="k">Nuit</span> <span>Gardiennage ou surveillance requis en cas d'installation la nuit</span></li>
-          <li><span class="k">Extérieur</span> <span>Bâche de protection fournie à poser la nuit en cas d'exposition en plein air</span></li>
-          <li><span class="k">Incendie</span> <span>Extincteur classe AB à prévoir à proximité</span></li>
-          <li><span class="k">Personnel</span> <span>Formation express des techniciens le jour du montage</span></li>
-        </ul>
-
-        <h4>Droits SACEM</h4>
-        <p>Pour les événements publics ou de grande ampleur, un listing de chaque musique répertoriant environ 300 morceaux classés par année vous sera délivré, et devra faire l'objet d'une autorisation auprès de la SACEM.</p>
-
-        <h4>Tarifs</h4>
-        <ul class="info-list">
-          <li><span class="k">Journée</span> <span>250€</span></li>
-          <li><span class="k">Week-end</span> <span>450€</span></li>
-          <li><span class="k">Semaine</span> <span>850€</span></li>
-          <li><span class="k">Caution</span> <span>1800€</span></li>
-        </ul>
-        <p class="form-note">Frais de transport non compris, variables selon la distance. Tarifs pouvant s'ajuster selon les horaires spécifiques de l'événement.</p>
-
-        <a href="#reservation" class="btn btn-primary" onclick="preselect('Location de créations — la Cab\'sule')" style="margin-top:10px;">Réserver la Cab'sule</a>
       </div>
 
       <!-- ===== Téléphone vintage livre d'or ===== -->
