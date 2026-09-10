@@ -450,6 +450,34 @@
     border:1px solid var(--line); display:block;
   }
 
+  /* ---------- Vignettes rapides (Caractéristiques / Musiques / Réserver) ---------- */
+  .quick-tile-row{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+    margin:28px 0 0;
+  }
+  @media (max-width:640px){ .quick-tile-row{ grid-template-columns:1fr; } }
+  .quick-tile{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px 12px; color:var(--text); text-decoration:none; text-align:center;
+    font-weight:600; font-size:0.9rem; cursor:pointer; font-family:'Inter', sans-serif;
+    transition:border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .quick-tile:hover{ border-color:var(--accent); color:var(--accent); }
+  .quick-tile-accent{ background:var(--accent); color:var(--bg); border-color:var(--accent); }
+  .quick-tile-accent:hover{ background:#FFEC4D; color:var(--bg); }
+  .quick-tile-arrow{ display:inline-block; transition:transform 0.25s ease; font-size:0.8em; }
+  .quick-tile-arrow.open{ transform:rotate(180deg); }
+
+  .caracteristiques-panel{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .caracteristiques-panel.open{
+    max-height:500px; opacity:1; margin-top:20px;
+  }
+  .caracteristiques-panel .info-list{ margin:0; }
+
   /* ---------- About ---------- */
   .about-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:start; }
   @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
@@ -1013,14 +1041,23 @@
         <p>Dès que vous pénétrez dans la Cab'sule, vous êtes enveloppé dans une immersion temporelle unique. Le premier geste est de décrocher le combiné du téléphone et de composer une année entre 1940 et aujourd'hui sur le cadran. Une fois votre choix effectué, la cabine vous transporte instantanément vers cette époque en vous offrant une musique aléatoire de son répertoire, sortie cette année-là — comme un bond dans le temps, entre souvenirs chers et découvertes musicales.</p>
         <p>Mes expériences en régie lumière m'ont permis d'apporter une touche de folie et d'originalité à la Cab'sule, en installant des jeux de lumière en réaction avec la musique sur toutes les parois intérieures, faisant de chaque voyage dans le temps une aventure sensorielle et émotionnelle.</p>
 
-        <h4>Caractéristiques</h4>
-        <ul class="info-list">
-          <li><span class="k">Dimensions</span> <span>Hauteur 2m20 · Largeur 90cm · Profondeur 1m</span></li>
-          <li><span class="k">Matériaux</span> <span>Structure en chêne massif, parois en PVC</span></li>
-          <li><span class="k">Téléphone</span> <span>Socotel S63 mural d'époque, transformé en juke-box interactif</span></li>
-          <li><span class="k">Fonctionnement</span> <span>On décroche, on compose une année (1940 à aujourd'hui), une musique aléatoire de cette année se lance</span></li>
-          <li><span class="k">Ambiance</span> <span>Jeux de lumière et jet de fumée synchronisés avec la musique</span></li>
-        </ul>
+        <div class="quick-tile-row">
+          <button type="button" class="quick-tile" id="btn-carac" onclick="toggleCaracteristiques(event)">
+            <span class="quick-tile-arrow" id="carac-arrow">▾</span> Caractéristiques
+          </button>
+          <a href="musiques.html" target="_blank" rel="noopener" class="quick-tile">Liste des musiques</a>
+          <a href="#reservation" class="quick-tile quick-tile-accent" onclick="preselect('Location de créations — la Cab\'sule')">Réserver la Cab'sule</a>
+        </div>
+
+        <div class="caracteristiques-panel" id="caracteristiques-panel">
+          <ul class="info-list">
+            <li><span class="k">Dimensions</span> <span>Hauteur 2m20 · Largeur 90cm · Profondeur 1m</span></li>
+            <li><span class="k">Matériaux</span> <span>Structure en chêne massif, parois en PVC</span></li>
+            <li><span class="k">Téléphone</span> <span>Socotel S63 mural d'époque, transformé en juke-box interactif</span></li>
+            <li><span class="k">Fonctionnement</span> <span>On décroche, on compose une année (1940 à aujourd'hui), une musique aléatoire de cette année se lance</span></li>
+            <li><span class="k">Ambiance</span> <span>Jeux de lumière et jet de fumée synchronisés avec la musique</span></li>
+          </ul>
+        </div>
 
         <h4>Spécifications techniques</h4>
         <ul class="info-list">
@@ -1619,6 +1656,16 @@
     if (!isOpen){
       card.scrollIntoView({ behavior:'smooth', block:'start' });
     }
+  }
+
+  // dépliage/repliage du panneau Caractéristiques de la Cab'sule
+  function toggleCaracteristiques(e){
+    e.preventDefault();
+    const panel = document.getElementById('caracteristiques-panel');
+    const arrow = document.getElementById('carac-arrow');
+    const isOpen = panel.classList.contains('open');
+    panel.classList.toggle('open', !isOpen);
+    arrow.classList.toggle('open', !isOpen);
   }
 
   function toggleDetailBlock(e, blockId){
